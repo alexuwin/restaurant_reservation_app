@@ -2,6 +2,7 @@
 import './App.css';
 import Nav from './components/Nav';
 import Login from './components/Login';
+import Register from './components/Register';
 import Reserve from './components/Reserve';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 //npm install react-router-dom@5.2.0
@@ -12,10 +13,13 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Nav />
-          <Switch>
-            <Route path ="/" exact component = {Reserve} />
-            <Route path ="/login" exact component = {Login} />
-          </Switch>
+          <div className='App-contents'>
+            <Switch>
+              <Route path ="/" exact component = {Reserve} />
+              <Route path ="/login" exact component = {Login} />
+              <Route path ="/register" exact component = {Register} />
+            </Switch>
+          </div>
         </header>
       </div>
     </Router>
