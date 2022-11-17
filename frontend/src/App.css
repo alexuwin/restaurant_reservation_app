@@ -49,3 +49,147 @@
     transform: rotate(360deg);
   }
 }
+
+
+.StarIcon{
+  fill: indianred;
+}
+
+.cuisine{
+  color: #a49797;
+}
+
+.location{
+  color: #cec0c0;
+}
+
+.sec1left{
+  float:left;
+  padding-left: 10%;
+}
+.sec2right{
+  float: right;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.info1{
+  background-color: rgb(177, 162, 162);
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  margin-bottom: 20px;
+  z-index: 3;
+}
+
+.GuestPick{
+  order: 1;
+  padding: 5px 15px;
+  font-family: Palatino, URW Palladio L, serif;
+  font-size: 14px;
+  letter-spacing: -.2px;
+  color: #282c34;
+}
+
+#guestNum{
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+  border-bottom-left-radius: 28px;
+  border-top-left-radius: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 30px;
+  line-height: 10x;
+  padding: 5px 0 0 25px;
+  font-weight: bold;
+}
+
+.divider{
+  order: 2;
+  align-self: center;
+  border-right: 1px solid #818386;
+  height: 90px;
+}
+
+.DatePick{
+  order: 3;
+  color: #282c34;
+  font-family: Palatino, URW Palladio L, serif;
+  font-size: 14px;
+  letter-spacing: -.2px;
+  padding: 5px 25px 25px 25px;
+  width: 300px;
+}
+
+.dtime{
+  padding-top: 5px;
+}
+
+.dishes{
+}
+
+#menuDish{
+  border-radius: 25px;
+}
+
+
+.tableCombineGen{
+  background-color: rgb(177, 162, 162);
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  margin-bottom: 20px;
+  z-index: 3;
+  padding: 25px 25px 25px 25px;
+}
+
+#titleTC{
+  font-size: 14px;
+  height: 30px;
+  line-height: 10x;
+  padding: 5px 0 0 10px;
+  color: #282c34;
+}
+
+.TableGenButton{
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+  border-radius: 25px;
+  background-color: rgb(163, 104, 104);
+}
+
+.customerInfo{
+  background-color: rgb(177, 162, 162);
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  margin-bottom: 20px;
+  z-index: 3;
+  padding: 25px 25px 25px 25px;
+  color: #282c34;
+  font-family: Palatino, URW Palladio L, serif;
+  font-size: 16px;
+  text-align: left;
+}
+
+.col1{
+  vertical-align: top;
+}
+
+.col2{
+  width: 100%;
+  vertical-align: top;
+}
+
+.nameText{
+  width: 30%;
+}
+
+.tbl{
+}
+
+.comment{
+  
+}
+
