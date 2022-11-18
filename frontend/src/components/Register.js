@@ -6,12 +6,12 @@ function Register() {
         <section>
             <div>
                 <h1>Register</h1>
-                <form action="/register" method="GET">
+                <form action="/register" method="POST">
                     <div>
-                        <input id="name" name="name" placeholder="Name" type="text" required class="validate" autocomplete="off"></input>
+                        <input id="name" name="name" placeholder="Name (Optional)" type="text" class="validate" autocomplete="off"></input>
                     </div>
                     <div>
-                        <input id="email" name="email" placeholder="Email" type="text" required class="validate" autocomplete="off"></input>
+                        <input id="email" name="email" placeholder="Email (Optional)" type="text" class="validate" autocomplete="off"></input>
                     </div>
                     <div>
                         <input id="username" name="username" placeholder="Username" type="text" required class="validate" autocomplete="off"></input>

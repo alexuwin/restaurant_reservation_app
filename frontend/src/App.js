@@ -3,6 +3,7 @@ import './App.css';
 import './index.css'
 import Nav from './components/Nav';
 import Login from './components/Login';
+import LoginFail from './components/LoginFail';
 import Register from './components/Register';
 import Reserve from './components/Reserve';
 import Fee from './components/Fee';
@@ -19,6 +20,7 @@ function App() {
             <Switch>
               <Route path ="/" exact component = {Reserve} />
               <Route path ="/login" exact component = {Login} />
+              <Route path ="/login-fail" exact component = {LoginFail} />
               <Route path ="/register" exact component = {Register} />
               <Route path ="/fee" exact component = {Fee} />
             </Switch>

@@ -1,11 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function Login() {
+function LoginFail() {
     return(
         <section>
             <div>
                 <h1>Login</h1>
+                <div class="container-fluid p-3 w-50">
+                            <div class="card-body p-1">
+                                <h6 class="card-title">Incorrect Username or Password.</h6>
+                            </div>
+                        </div>
                 <form action="/login" method="POST">
                     <div>
                         <input id="username" name="username" placeholder="Username" type="text" required class="validate" autocomplete="off"></input>
@@ -24,4 +29,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginFail;
