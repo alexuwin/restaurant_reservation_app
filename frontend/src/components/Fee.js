@@ -9,6 +9,7 @@ function Fee(e) {
     //const [name, setName] = useState('')
     var [expiry, setExpiry] = useState('')
     const [cvv, setCvv] = useState('')
+    const [zip, setZip] = useState('')
 
     const handleCardNum = (e) => {
         const inputVal = e.target.value.replace(/ /g, "");
@@ -55,55 +56,68 @@ function Fee(e) {
         setCvv(value);
     };
 
+    const handleZip = (e) => {
+        const value = e.target.value.replace(/\D/g, ""); // To allow only numerical values/inputs
+        setZip(value);
+    };
+
     return(
         <section>
             <div>
                 <h1>Payment Information</h1>
-                <form action="/fee" method="GET">
-                    <div>
-                        <label for="card-brand">Brand: &nbsp;
-                        <select name="card-brand" id="card-brand">
-                            <option value="mastercard">Mastercard</option>
-                            <option value="visa">Visa</option>
-                            <option value="american-express">American Express</option>
-                            <option value="jcb">JCB</option>
-                            <option value="discover">Discover</option>
-                        </select>
-                        </label>
+                <form action="/fee" method="POST">
+                    <div className='customerInfo'>
+                        <span>
+                            <div>
+                                <label for="cardBrand">Brand: &nbsp;
+                                <select name="cardBrand" id="cardBrand">
+                                    <option value="mastercard">Mastercard</option>
+                                    <option value="visa">Visa</option>
+                                    <option value="american-express">American Express</option>
+                                    <option value="jcb">JCB</option>
+                                    <option value="discover">Discover</option>
+                                </select>
+                                </label>
+                            </div>
+                            <div>
+                                <label for="cardNumber">Card Number: &nbsp;
+                                <input id="cardNumber" name="cardNumber" placeholder="Card Number (Ex: 1234 4567 8901 2345)" type="text" value={number} onChange={handleCardNum} required class="payment-text-input" autocomplete="off"></input>
+                                </label>
+                            </div>
+                            <div>
+                                <label for="expDate">Expiry Date: &nbsp;
+                                <input id="expDate" name="expDate" placeholder="MM / YY (Ex: 09/99)" type="text" value={expiry} onChange={handleExpiration} required class="payment-text-input" autocomplete="off" maxLength="5"></input>
+                                </label>
+                            </div>
+                            <div>
+                                <label for="cardHolder">Card Holder: &nbsp;
+                                <input id="cardHolder" name="cardHolder" placeholder="Card Holder (Ex: John Doe)" type="text" required class="payment-text-input" autocomplete="off"></input>
+                                </label>
+                            </div>
+                            <div>
+                                <label for="cvv">CVV: &nbsp;
+                                <input id="cvv" name="cvv" placeholder="CVV/CVC (Ex: 123)" value={cvv} onChange={handleCvv} type="text" required class="payment-text-input" autocomplete="off" maxLength="4"></input>
+                                </label>
+                            </div>
+                                <label for="billingAddress">Address: &nbsp;
+                                <input id="billingAddress" name="billingAddress" placeholder="Address (Ex: 1234 Valley Rd)" type="text" required class="payment-text-input" autocomplete="off"></input>
+                                </label>
+                            <div>
+                                <label for="zipCode">Zip Code: &nbsp;
+                                <input id="zipCode" name="zipCode" placeholder="Zip Code (Ex: 01923)" value={zip} onChange={handleZip} type="text" required class="payment-text-input" autocomplete="off"></input>
+                                </label>
+                            </div>
+                            <div>
+                                <label>Is the billing address above the same as the mailing address? &nbsp;</label>
+                                <input type="checkbox" id="checkbox" name="checkbox"></input>
+                            </div>
+                            <div>
+                                <input type="submit" value="Submit"></input>
+                            </div>
+                        </span>
                     </div>
                     <div>
-                        <label for="card-number">Card Number: &nbsp;
-                        <input id="card-number" name="card-number" placeholder="Card Number" value={number} onChange={handleCardNum} required class="validate" autocomplete="off"></input>
-                        </label>
-                    </div>
-                    <div>
-                        <label for="expiration-date">Expiry Date: &nbsp;
-                        <input id="expiration-date" name="expiration-date" placeholder="MM / YY" value={expiry} onChange={handleExpiration} required class="validate" autocomplete="off" maxLength="5"></input>
-                        </label>
-                    </div>
-                    <div>
-                        <label for="card-holder">Card Holder: &nbsp;
-                        <input id="card-holder" name="card-holder" placeholder="Card Holder" type="text" required class="validate" autocomplete="off"></input>
-                        </label>
-                    </div>
-                    <div>
-                        <label for="cvv">CVV: &nbsp;
-                        <input id="cvv" name="cvv" placeholder="CVV/CVC" value={cvv} onChange={handleCvv} required class="validate" autocomplete="off" maxLength="4"></input>
-                        </label>
-                    </div>
-                        <label for="billing-address">Address: &nbsp;
-                        <input id="billing-address" name="billing-address" placeholder="Address" type="text" required class="validate" autocomplete="off"></input>
-                        </label>
-                    <div>
-                        <label for="zip-code">Zip Code: &nbsp;
-                        <input id="zip-code" name="zip-code" placeholder="Zip Code" type="text" required class="validate" autocomplete="off"></input>
-                        </label>
-                    </div>
-                    <div>
-                        <input type="submit" value="Submit"></input>
-                    </div>
-                    <div>
-                        <strong>NOTE: No show will result in a minimum of a $10 charge!</strong>
+                        <strong><u>NOTE: No show will result in a minimum of a $10 charge!</u></strong>
                     </div>
                 </form>
             </div>

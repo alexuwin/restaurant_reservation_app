@@ -75,7 +75,7 @@ app.post('/login', (req, res) => {
     }
 });
 
-app.post('/Register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const username = req.body.username;
@@ -97,5 +97,38 @@ app.post('/Register', async (req, res) => {
         console.log(err);
         res.redirect('/register-fail')
         res.end('User not added!');
+    }
+});
+
+app.post('/fee', async (req, res) => {
+    const cardBrand = req.body.cardBrand;
+    const cardNumber = req.body.cardNumber;
+    const expDate = req.body.expDate;
+    const cardHolder = req.body.cardHolder;
+    const cvv = req.body.cvv;
+    const billingAddress = req.body.billingAddress;
+    const zipCode = req.body.zipCode;
+
+    const payment = {cardBrand: cardBrand, 
+        cardNumber: cardNumber,
+        expDate: expDate,
+        cardHolder: cardHolder,
+        cvv: cvv,
+        billingAdress: billingAddress,
+        zipCode: zipCode
+      };
+
+    const newPayment = new Schemas.Payments(payment);
+
+    try {
+    await newPayment.save(async(err, newPayment) => {
+        console.log('New payment created!');
+        res.redirect('/')
+        res.end('New user payment created!');
+    });
+    } catch(err) {
+        console.log(err);
+        res.redirect('/payment-fail')
+        res.end('User payment not added!');
     }
 });

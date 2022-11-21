@@ -50,7 +50,6 @@
   }
 }
 
-
 .StarIcon{
   fill: indianred;
 }
@@ -67,9 +66,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
-
 
 .info1{
   background-color: rgb(177, 162, 162);
@@ -79,7 +76,6 @@
   padding: 10%;
   color: #282c34;
   width:max-content;
-
 }
 
 #guestNum{
@@ -91,7 +87,6 @@
   cursor: pointer;
   font-weight: bold;
 }
-
 
 .GuestPick{
   order: 1;
@@ -107,16 +102,11 @@
   vertical-align: top;
 }
 
-
-
 .dt{
   align-self: center;
   padding-left: 6%;
   padding-right: 5%;
 }
-
-
-
 
 .tableCombineGen{
   background-color: rgb(177, 162, 162);
@@ -129,18 +119,15 @@
 }
 
 .TableGenButton{
+  right: 100px;
   padding: 5%;
   border-radius: 25px;
   background-color: rgb(163, 104, 104);
 }
 
-
-
-
 .tableListText{
   text-align: center;
 }
-
 
 .customerInfo{
   background-color: rgb(177, 162, 162);
@@ -154,9 +141,17 @@
   margin-top: 10%;
 }
 
-
-
-
+.loginRegisterCentered{
+  background-color: rgb(177, 162, 162);
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  padding: 8%;
+  color: #282c34;
+  text-align: center;
+  width: max-content;
+  margin-top: 10%;
+}
 
 #menuDish{
   border-radius: 10%;
@@ -166,4 +161,14 @@
 
 .s3{
   width: max-content;
+}
+
+.password{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 0.1ch;
+}
+
+i{
+  margin-left: -24px;
+  cursor: pointer;
 }
