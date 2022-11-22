@@ -3,17 +3,35 @@ import {Link} from 'react-router-dom';
 
 function Nav() {
     return(
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark top">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMainMenu" aria-controls="navMainMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="navMainMenu" class="navbar-collapse collapse">
-                <div class="navbar-nav ml-auto">
-                    <Link to='/' className="nav-item nav-link">Reserve</Link>
-                    <Link to='/login' className="nav-item nav-link">Login</Link>
-                    <Link to='/fee' className="nav-item nav-link">Fee</Link>
+        <nav className="nav">
+            <a href="/home" className="site-title">Pho Bar and Grill<Link to='/home'></Link></a>
+            <div>
+                <p></p>
+                    <svg height="19" viewBox="0 0 20 19" width="20" className="StarIcon">
+                        <path  d="m19.3266897 6.81209154-6.0333852-.87390272-2.7043055-5.44738083c-.1520997-.32725431-.3486048-.49080799-.5889252-.49080799-.24032046 0-.43667804.16355368-.58892523.49080799l-2.70445309 5.44738083-6.03368026.87390272c-.44862764.07185782-.67301522.25539649-.67301522.55076297 0 .16766824.10017039.35928908.30051118.57471558l4.37504149 4.23814161-1.03356962 5.9860941c-.01608037.1118278-.0240468.1917678-.0240468.239526 0 .1676683.04204501.3091797.12613503.425122.08409003.1157954.21022506.1735462.37855262.1735462.14428078 0 .30449439-.0476113.48078838-.1435687l5.39651396-2.8256727 5.39695656 2.8256727c.1684751.0958104.3286887.1435687.4806408.1435687.1606562 0 .2826605-.0576038.3667505-.1735462.0839425-.1157954.1259875-.2574537.1259875-.425122 0-.1037456-.0039832-.1835387-.0120971-.239526l-1.0337172-5.9860941 4.3629444-4.23814161c.2086022-.20749128.3126083-.39911212.3126083-.57471558 0-.29536648-.2242401-.47890515-.6733103-.55076297z"></path>
+                    </svg>
+                    <span>&nbsp;4.6&nbsp;</span>
+                    <span>(90)&nbsp;&nbsp;&nbsp;</span>
+                    <span className="cuisine">❧ Vietnamese Cuisine </span>
                 </div>
-            </div>
+                <div>
+                <p></p>
+                    <svg height="1em" width="1em" viewBox="0 0 20 20" >
+                        <path d="m10 1.5c3.5898509 0 6.5 2.91014913 6.5 6.5 0 3.1783736-1.8115848 5.4745544-4.9479735 8.6580075l-.8458482.8488788c-.611314.6003241-.75280912.6319201-1.31466848.094788l-.63253781-.6293629-.60151476-.6104719c-2.92840208-3.0013562-4.65745725-5.2721018-4.65745725-8.3618395 0-3.58985087 2.91014913-6.5 6.5-6.5zm0 4c-1.38071187 0-2.5 1.11928813-2.5 2.5s1.11928813 2.5 2.5 2.5c1.3807119 0 2.5-1.11928813 2.5-2.5s-1.1192881-2.5-2.5-2.5z" fillRule="evenodd"></path>
+                    </svg>
+                    <span className="location">&nbsp;209 Star Esclipe Blv, HTX 77209</span>
+                </div>
+            <ul>
+                <li className="active">
+                    <a href="/reserve">Reserve<Link to='/reserve'></Link></a>
+                </li>
+                <li>
+                    <a href="/login">Login<Link to='/login'></Link></a>
+                </li>
+                <li>
+                    <a href="/fee">Payment<Link to='/fee'></Link></a>
+                </li>
+            </ul>
         </nav>
     );
 }

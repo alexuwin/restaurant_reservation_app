@@ -45,23 +45,27 @@ function Login(){
     return(
         <section>
             <div>
-                <h1>Login</h1>
+                <h1 className="loginRegisterTitle">Login</h1>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
                     <link rel="stylesheet" href="App.css"></link>
                 <form action="/login" method="POST">
                     <div className='loginRegisterCentered'>
                         <span>
                             <div>
-                                <input id="username" name="username" placeholder="Username" type="text" required class="validate" autocomplete="off"></input>
+                                <input id="username" name="username" placeholder="Username" type="text" required className="inp-text-input-loginReg" autocomplete="off"></input>
                             </div>
+                            <p>
+                            </p>
                             <div>
-                                <input id="password" name="password" placeholder="Password" type={password} required class="validate" autocomplete="off"></input>
+                                <input id="password" name="password" placeholder="Password" type={password} required className="inp-text-input-loginReg" autocomplete="off"></input>
                                 <span onClick={handleToggle}><Icon icon={icon} size={20}/></span>
                             </div>
-                            <input type="submit" value="Login"/>
+                            <p>
+                            </p>
+                            <input type="submit" value="Login" className="inp-text-input-loginReg"/>
                             <div class="register">
                                 Don't have an account yet?
-                                <Link to='/register'><button id="register-link">Register</button></Link>
+                                <Link to='/register'><button id="register-link" className="btn-work-reg">Register</button></Link>
                             </div>
                         </span>
                     </div>

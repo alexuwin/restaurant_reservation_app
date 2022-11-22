@@ -24,27 +24,31 @@ function Register() {
     return(
         <section>
             <div>
-                <h1>Register</h1>
+                <h1 className="loginRegisterTitle">Register</h1>
                 <form action="/register" method="POST">
                     <div className='loginRegisterCentered'>
                         <span>
                             <div>
-                                <input id="name" name="name" placeholder="Name (Optional)" type="text" class="validate" autocomplete="off"></input>
+                                <input id="name" name="name" placeholder="Name (Optional)" type="text" className="inp-text-input-loginReg" autocomplete="off"></input>
                             </div>
+                            <p></p>
                             <div>
-                                <input id="email" name="email" placeholder="Email (Optional)" type="text" class="validate" autocomplete="off"></input>
+                                <input id="email" name="email" placeholder="Email (Optional)" type="text" className="inp-text-input-loginReg" autocomplete="off"></input>
                             </div>
+                            <p></p>
                             <div>
-                                <input id="username" name="username" placeholder="Username" type="text" required class="validate" autocomplete="off"></input>
+                                <input id="username" name="username" placeholder="Username" type="text" required className="inp-text-input-loginReg" autocomplete="off"></input>
                             </div>
+                            <p></p>
                             <div>
-                                <input id="password" name="password" placeholder="Password" type={password} required class="validate" autocomplete="off"></input>
+                                <input id="password" name="password" placeholder="Password" type={password} required className="inp-text-input-loginReg" autocomplete="off"></input>
                                 <span onClick={handleToggle}><Icon icon={icon} size={20}/></span>
                             </div>
-                            <input type="submit" value="Create Account"/>
+                            <p></p>
+                            <input type="submit" value="Create Account" className="inp-text-input-loginReg"/>
                             <div class="register">
                                 Already have an account?
-                                <Link to='/login'><button id="login-link">Login</button></Link>
+                                <Link to='/login'><button id="login-link" className="btn-work">Login</button></Link>
                             </div>
                         </span>
                     </div>

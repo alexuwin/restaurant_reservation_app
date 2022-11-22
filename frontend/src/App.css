@@ -1,6 +1,7 @@
+/*For entire app, careful when adding more as it may affect every page*/
 .App {
   text-align: center;
-  background-color: #282c34;
+  background-color: hsl(0, 0%, 100%);
   min-height: 100vh;
 }
 
@@ -15,6 +16,19 @@
   }
 }
 
+.welcomeScreen{
+  font-size: 80px
+}
+
+.homeMsg{
+  font-size: 50px
+}
+
+.quote{
+  font-size: 20px
+}
+
+/*
 .App-header {
   background-color: #282c34;
   padding-top: 50px;
@@ -25,7 +39,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+*/
+/*
 .App-contents {
   padding: 70px 0;
   text-align: center;
@@ -36,6 +51,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+*/
 
 .App-link {
   color: #61dafb;
@@ -50,16 +66,31 @@
   }
 }
 
+.wrapper{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*For styling reservation*/
+.userCredentialsReserve{
+  margin-left: -50px;
+  text-align: left;
+}
+
 .StarIcon{
   fill: indianred;
 }
 
 .cuisine{
-  color: #a49797;
+  color: #ffffff;
 }
 
 .location{
-  color: #cec0c0;
+  color:  #ffffff;
 }
 
 .main{
@@ -69,13 +100,26 @@
 }
 
 .info1{
-  background-color: rgb(177, 162, 162);
-  border: 5px solid #5c5757;
+  background-color: #e6a1a1;
+  border: 5px solid white;
+  justify-content: space-between;
   border-radius: 28px;
   display: flex;
   padding: 10%;
+  margin: auto;
   color: #282c34;
   width:max-content;
+}
+
+.TableGenButton{
+  right: 100px;
+  padding: 5%;
+  border-radius: 25px;
+  background-color: rgb(163, 104, 104);
+}
+
+.tableListText{
+  text-align: center;
 }
 
 #guestNum{
@@ -91,10 +135,12 @@
 .GuestPick{
   order: 1;
 }
+
 .divider{
   order: 2;
   border-right: 2px solid #818386;
   padding-left: 5%;
+  height: -50px;
 }
 
 .DatePick{
@@ -102,55 +148,22 @@
   vertical-align: top;
 }
 
+.date-input-box{
+  width: 260px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+}
+
 .dt{
   align-self: center;
   padding-left: 6%;
   padding-right: 5%;
-}
-
-.tableCombineGen{
-  background-color: rgb(177, 162, 162);
-  border: 5px solid #5c5757;
-  border-radius: 28px;
-  display: flex;
-  padding: 8%;
-  color: #282c34;
-  width: max-content;
-}
-
-.TableGenButton{
-  right: 100px;
-  padding: 5%;
-  border-radius: 25px;
-  background-color: rgb(163, 104, 104);
-}
-
-.tableListText{
-  text-align: center;
-}
-
-.customerInfo{
-  background-color: rgb(177, 162, 162);
-  border: 5px solid #5c5757;
-  border-radius: 28px;
-  display: flex;
-  padding: 8%;
-  color: #282c34;
-  text-align: left;
-  width: max-content;
-  margin-top: 10%;
-}
-
-.loginRegisterCentered{
-  background-color: rgb(177, 162, 162);
-  border: 5px solid #5c5757;
-  border-radius: 28px;
-  display: flex;
-  padding: 8%;
-  color: #282c34;
-  text-align: center;
-  width: max-content;
-  margin-top: 10%;
 }
 
 #menuDish{
@@ -163,12 +176,195 @@
   width: max-content;
 }
 
+.commentBox{
+  position: relative;
+  width: 225px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+/*
+.customerInfo{
+  background-color: rgb(177, 162, 162);
+  margin: auto;
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  padding: 8%;
+  color: #282c34;
+  text-align: left;
+  width: max-content;
+  margin-top: 10%;
+}
+
+.tableCombineGen{
+  background-color: rgb(177, 162, 162);
+  margin: auto;
+  border: 5px solid #5c5757;
+  border-radius: 28px;
+  display: flex;
+  padding: 8%;
+  color: #282c34;
+  width: max-content;
+}
+*/
+
+/*Smooth edges for input fields*/
+.inp-text-input{
+  width: 800px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.inp-text-input-submit-payment{
+  width: 125px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-left: 4px;
+  margin: 0 auto;
+  line-height: 50px;
+  text-align: center;
+}
+
+.inp-text-input-reserve{
+  width: 225px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.inp-text-input-loginReg{
+  width: 225px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+}
+
+/*For styling login/register*/
+.loginRegisterTitle{
+  height: 100px;
+  width: 100%;
+  font-size: 50px;
+  line-height:6;
+}
+
+.loginRegisterCentered{
+  background-color: #e6a1a1;
+  margin: auto;
+  border: 5px solid white;
+  border-radius: 28px;
+  display: flex;
+  padding: 8%;
+  color: #282c34;
+  text-align: center;
+  width: max-content;
+  margin-top: 10%;
+}
+
+.btn-work{
+  width: 225px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-left: 85px;
+  margin: 0 auto;
+  line-height: 50px;
+  text-align: center;
+}
+
+.btn-work-reg{
+  width: 225px;
+  height: 55px;
+  border-radius: 24px;
+  display: flex;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-left: 80px;
+  margin: 0 auto;
+  line-height: 50px;
+  text-align: center;
+}
+
+/*For password visibility toggle*/
 .password{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 0.1ch;
 }
 
 i{
+  position: relative;
+  bottom: 40px;
+  left: 100px;
   margin-left: -24px;
   cursor: pointer;
+}
+
+/*For NavBar*/
+.nav{
+  background-color: #e6a1a1;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.site-title{
+  font-size: 3rem;
+}
+
+.nav ul{
+  padding: 0px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a{
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+}
+
+.nav li.active{
+  background-color: hsl(0, 94%, 79%);
+}
+
+.nav li:hover{
+  background-color: hsl(0, 94%, 79%);
 }

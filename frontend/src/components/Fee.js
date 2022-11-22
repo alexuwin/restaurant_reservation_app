@@ -66,7 +66,7 @@ function Fee(e) {
             <div>
                 <h1>Payment Information</h1>
                 <form action="/fee" method="POST">
-                    <div className='customerInfo'>
+                    <div>
                         <span>
                             <div>
                                 <label for="cardBrand">Brand: &nbsp;
@@ -81,30 +81,30 @@ function Fee(e) {
                             </div>
                             <div>
                                 <label for="cardNumber">Card Number: &nbsp;
-                                <input id="cardNumber" name="cardNumber" placeholder="Card Number (Ex: 1234 4567 8901 2345)" type="text" value={number} onChange={handleCardNum} required class="payment-text-input" autocomplete="off"></input>
+                                <input id="cardNumber" name="cardNumber" placeholder="Card Number (Ex: 1234 4567 8901 2345)" type="text" value={number} onChange={handleCardNum} required className="inp-text-input" autocomplete="off"></input>
                                 </label>
                             </div>
                             <div>
                                 <label for="expDate">Expiry Date: &nbsp;
-                                <input id="expDate" name="expDate" placeholder="MM / YY (Ex: 09/99)" type="text" value={expiry} onChange={handleExpiration} required class="payment-text-input" autocomplete="off" maxLength="5"></input>
+                                <input id="expDate" name="expDate" placeholder="MM / YY (Ex: 09/99)" type="text" value={expiry} onChange={handleExpiration} required className="inp-text-input" autocomplete="off" maxLength="5"></input>
                                 </label>
                             </div>
                             <div>
                                 <label for="cardHolder">Card Holder: &nbsp;
-                                <input id="cardHolder" name="cardHolder" placeholder="Card Holder (Ex: John Doe)" type="text" required class="payment-text-input" autocomplete="off"></input>
+                                <input id="cardHolder" name="cardHolder" placeholder="Card Holder (Ex: John Doe)" type="text" required className="inp-text-input" autocomplete="off"></input>
                                 </label>
                             </div>
                             <div>
                                 <label for="cvv">CVV: &nbsp;
-                                <input id="cvv" name="cvv" placeholder="CVV/CVC (Ex: 123)" value={cvv} onChange={handleCvv} type="text" required class="payment-text-input" autocomplete="off" maxLength="4"></input>
+                                <input id="cvv" name="cvv" placeholder="CVV/CVC (Ex: 123)" value={cvv} onChange={handleCvv} type="text" required className="inp-text-input" autocomplete="off" maxLength="4"></input>
                                 </label>
                             </div>
                                 <label for="billingAddress">Address: &nbsp;
-                                <input id="billingAddress" name="billingAddress" placeholder="Address (Ex: 1234 Valley Rd)" type="text" required class="payment-text-input" autocomplete="off"></input>
+                                <input id="billingAddress" name="billingAddress" placeholder="Address (Ex: 1234 Valley Rd)" type="text" required className="inp-text-input" autocomplete="off"></input>
                                 </label>
                             <div>
                                 <label for="zipCode">Zip Code: &nbsp;
-                                <input id="zipCode" name="zipCode" placeholder="Zip Code (Ex: 01923)" value={zip} onChange={handleZip} type="text" required class="payment-text-input" autocomplete="off"></input>
+                                <input id="zipCode" name="zipCode" placeholder="Zip Code (Ex: 01923)" value={zip} onChange={handleZip} type="text" required className="inp-text-input" autocomplete="off"></input>
                                 </label>
                             </div>
                             <div>
@@ -112,7 +112,7 @@ function Fee(e) {
                                 <input type="checkbox" id="checkbox" name="checkbox"></input>
                             </div>
                             <div>
-                                <input type="submit" value="Submit"></input>
+                                <input type="submit" value="Submit" className="inp-text-input-submit-payment"></input>
                             </div>
                         </span>
                     </div>
