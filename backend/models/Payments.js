@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//testBranch
 const paymentSchema = new Schema({
     cardBrand: {type:String, required:true},
     cardNumber: {type:String, required:true},
