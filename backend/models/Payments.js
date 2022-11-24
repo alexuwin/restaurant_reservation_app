@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    username: {type:String, required:true},
-    password: {type:String, required:true},
-    name: {type:String, required:false},
-    email: {type:String, required:false}
-});
-
 const paymentSchema = new Schema({
     cardBrand: {type:String, required:true},
     cardNumber: {type:String, required:true},
@@ -19,9 +12,6 @@ const paymentSchema = new Schema({
     users: {type:Schema.Types.ObjectID, ref:'users'}
 })
 
-
-const Users = mongoose.model('users', userSchema, 'users');
 const Payments = mongoose.model('payments', paymentSchema, 'payments');
-const mySchemas = {'Users':Users, 'Payments':Payments};
 
-module.exports = mySchemas;
+module.exports = Payments;

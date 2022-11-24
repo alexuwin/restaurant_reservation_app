@@ -285,6 +285,13 @@
   margin-top: 10%;
 }
 
+.loginRegisterError{
+  height: 0px;
+  width: 100%;
+  font-size: 25px;
+  line-height:10;
+}
+
 .btn-work{
   width: 225px;
   height: 55px;

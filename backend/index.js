@@ -3,7 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Schemas = require('./models/Schemas.js');
+const Payments = require('./models/Payments.js');
+const Users = require('./models/Users.js')
 const session = require('express-session');
 require('dotenv/config'); //enables using .env file
 
@@ -49,30 +50,29 @@ app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    if (username != 'alex') {
-        /*const str = [{
-            "msg": "Username does not exist."
-           }]; 
-        res.end(JSON.stringify(str));*/
+    Users.findOne({username:username}).then((result)=>{
+        if (password != result.password) {
+            console.log('Wrong password')
+            res.redirect('/login-fail');
+            res.end();
+        } else {
+            console.log('Login successful!')
+            req.session.guest = false;
+            req.session.user = username
+            req.session.userID = result._id
+            res.redirect('/');
+            res.end();
+        }
+    }).catch((err) => {
+        console.log(err);
         res.redirect('/login-fail');
         res.end();
-    } else if (password != '123') {
-        /*const str = [{
-            "msg": "Incorrect Username or Password."
-           }]; 
-        res.end(JSON.stringify(str));*/
-        res.redirect('/login-fail');
-        res.end();
-    } else {
-        /*const str = [{
-            "msg": "Login Successful!"
-           }]; 
-        res.end(JSON.stringify(str));*/
-        req.session.authenticated = true;
-        req.session.user = username
-        res.redirect('/');
-        res.end();
-    }
+    })
+    /*Users.findOne({username:username},{_id: false}).then((result)=>{
+        res.send(result.password);
+    }).catch((err) => {
+        console.log(err);
+    })*/
 });
 
 app.post('/register', async (req, res) => {
@@ -81,17 +81,21 @@ app.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = {username: username, 
+    const user = new Users({username: username, 
                   password: password,
                   name: name, 
-                  email: email
-                };
-    const newUser = new Schemas.Users(user);
+                  email: email,
+                  isGuest: false
+                });
     try {
-        await newUser.save( async(err, newUserResult) => {
-            console.log('New user created!');
+        await user.save( async(err, newUserResult) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('New user created!');
+            }
             res.redirect('/login')
-            res.end('New user created!');
+            res.end();
         });
     } catch(err) {
         console.log(err);
@@ -109,26 +113,30 @@ app.post('/fee', async (req, res) => {
     const billingAddress = req.body.billingAddress;
     const zipCode = req.body.zipCode;
 
-    const payment = {cardBrand: cardBrand, 
+    const payment = new Payments({cardBrand: cardBrand, 
         cardNumber: cardNumber,
         expDate: expDate,
         cardHolder: cardHolder,
         cvv: cvv,
         billingAdress: billingAddress,
         zipCode: zipCode
-      };
+      });
 
-    const newPayment = new Schemas.Payments(payment);
+    //const newPayment = new Schemas.Payments(payment);
 
     try {
-    await newPayment.save(async(err, newPayment) => {
-        console.log('New payment created!');
-        res.redirect('/')
-        res.end('New user payment created!');
-    });
-    } catch(err) {
-        console.log(err);
-        res.redirect('/payment-fail')
-        res.end('User payment not added!');
+        await payment.save(async(err, newPaymentResult) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('New payment created!');
+            }
+            res.redirect('/')
+            res.end();
+        });
+        } catch(err) {
+            console.log(err);
+            res.redirect('/payment-fail')
+            res.end('User payment not added!');
     }
 });
