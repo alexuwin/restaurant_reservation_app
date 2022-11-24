@@ -129,10 +129,14 @@ app.post('/fee', async (req, res) => {
                 });
 
     //const newPayment = new Schemas.Payments(payment);
-
+    console.log(payment);
     try {
         await payment.save(async(err, newPaymentResult) => {
-            console.log('New payment created!');
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('New payment created!');
+            }
             res.redirect('/fee')
             res.end('New user payment created!');
         });
