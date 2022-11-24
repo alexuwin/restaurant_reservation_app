@@ -29,6 +29,16 @@
   font-size: 20px
 }
 
+.paymentButton{
+  position: relative;
+  padding: 5%;
+  bottom: -11px;
+  height: 0px;
+  width: 15px;
+  border-radius: 25px;
+  background-color: rgb(163, 104, 104);
+}
+
 /*
 .App-header {
   background-color: #282c34;

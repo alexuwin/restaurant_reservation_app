@@ -3,13 +3,14 @@ import {useState} from 'react';
 //testBranch
 //import {Link} from 'react-router-dom';
 
-function Fee(e) {
+function Fee() {
 
     const [number, setNumber] = useState('')
     //const [name, setName] = useState('')
     var [expiry, setExpiry] = useState('')
     const [cvv, setCvv] = useState('')
     const [zip, setZip] = useState('')
+    const [ranNum, setRandNum] = useState('');
 
     const handleCardNum = (e) => {
         const inputVal = e.target.value.replace(/ /g, "");
@@ -61,6 +62,14 @@ function Fee(e) {
         setZip(value);
     };
 
+    function randomNumberInRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+      const handleClick = () => {
+        setRandNum(randomNumberInRange(1, 18));
+    };
+
     return(
         <section>
             <div>
@@ -68,6 +77,15 @@ function Fee(e) {
                 <form action="/fee" method="POST">
                     <div>
                         <span>
+                            <div>
+                                <label for="paymentType">Payment Options: &nbsp;
+                                <select name="paymentType" id="paymentType">
+                                    <option value="creditCard">Credit Card(s)</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="check">Check</option>
+                                </select>
+                                </label>
+                            </div>
                             <div>
                                 <label for="cardBrand">Brand: &nbsp;
                                 <select name="cardBrand" id="cardBrand">
@@ -108,12 +126,15 @@ function Fee(e) {
                                 </label>
                             </div>
                             <div>
+                                <label for="dinerNum">Diner #: {ranNum}&nbsp;
+                                    <input type="button" className="paymentButton" onClick={handleClick}></input>
+                                </label>
+                            </div>
+                            <div>
                                 <label>Is the billing address above the same as the mailing address? &nbsp;</label>
                                 <input type="checkbox" id="checkbox" name="checkbox"></input>
                             </div>
-                            <div>
-                                <input type="submit" value="Submit" className="inp-text-input-submit-payment"></input>
-                            </div>
+                            <input type="submit" value="Submit" className="inp-text-input-submit-payment"/>
                         </span>
                     </div>
                     <div>

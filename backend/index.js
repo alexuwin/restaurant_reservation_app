@@ -10,8 +10,10 @@ require('dotenv/config'); //enables using .env file
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(express.json()); //added
+app.use(bodyParser.urlencoded({extended:true})); //modified, false to true
+app.use(express.static('public')); //added
 
 app.use(
     session({
@@ -105,6 +107,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/fee', async (req, res) => {
+    const paymentType = req.body.paymentType;
     const cardBrand = req.body.cardBrand;
     const cardNumber = req.body.cardNumber;
     const expDate = req.body.expDate;
@@ -112,31 +115,31 @@ app.post('/fee', async (req, res) => {
     const cvv = req.body.cvv;
     const billingAddress = req.body.billingAddress;
     const zipCode = req.body.zipCode;
+    const dinerNum = req.body.dinerNum;
 
-    const payment = new Payments({cardBrand: cardBrand, 
-        cardNumber: cardNumber,
-        expDate: expDate,
-        cardHolder: cardHolder,
-        cvv: cvv,
-        billingAdress: billingAddress,
-        zipCode: zipCode
-      });
+    const payment = new Payments({paymentType: paymentType,
+                    cardBrand: cardBrand, 
+                    cardNumber: cardNumber,
+                    expDate: expDate,
+                    cardHolder: cardHolder,
+                    cvv: cvv,
+                    billingAdress: billingAddress,
+                    zipCode: zipCode,
+                    dinerNum: dinerNum
+                });
 
     //const newPayment = new Schemas.Payments(payment);
 
     try {
         await payment.save(async(err, newPaymentResult) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('New payment created!');
-            }
-            res.redirect('/')
-            res.end();
+            console.log('New payment created!');
+            res.redirect('/fee')
+            res.end('New user payment created!');
         });
-        } catch(err) {
-            console.log(err);
-            res.redirect('/payment-fail')
-            res.end('User payment not added!');
+    } catch(err) {
+        console.log(err);
+        console.log('caught error in fee!')
+        res.redirect('/payment-fail')
+        res.end('User payment not added!');
     }
 });
