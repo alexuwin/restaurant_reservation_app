@@ -105,6 +105,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/fee', async (req, res) => {
+    const paymentType = req.body.paymentType;
     const cardBrand = req.body.cardBrand;
     const cardNumber = req.body.cardNumber;
     const expDate = req.body.expDate;
@@ -112,15 +113,20 @@ app.post('/fee', async (req, res) => {
     const cvv = req.body.cvv;
     const billingAddress = req.body.billingAddress;
     const zipCode = req.body.zipCode;
+    const dinerNum = req.body.dinerNum;
+    const mailingAddress = req.body.mailingAddress;
 
-    const payment = new Payments({cardBrand: cardBrand, 
-        cardNumber: cardNumber,
-        expDate: expDate,
-        cardHolder: cardHolder,
-        cvv: cvv,
-        billingAdress: billingAddress,
-        zipCode: zipCode
-      });
+    const payment = new Payments({paymentType: paymentType,
+                    cardBrand: cardBrand, 
+                    cardNumber: cardNumber,
+                    expDate: expDate,
+                    cardHolder: cardHolder,
+                    cvv: cvv,
+                    billingAddress,
+                    zipCode: zipCode,
+                    dinerNum: dinerNum,
+                    mailingAddress
+                });
 
     //const newPayment = new Schemas.Payments(payment);
 

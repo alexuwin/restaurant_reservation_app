@@ -7,10 +7,14 @@ function Fee(e) {
 
     const [number, setNumber] = useState('')
     //const [name, setName] = useState('')
-    var [expiry, setExpiry] = useState('')
+    const [expiry, setExpiry] = useState('')
     const [cvv, setCvv] = useState('')
     const [zip, setZip] = useState('')
-
+    const [ranNum, setRandNum] = useState('');
+    //const [ranPoints, setPoints] = useState('');
+    const [isChecked, setChecked] = useState(false);
+    const [sameAdd, setAddress] = useState('');
+    
     const handleCardNum = (e) => {
         const inputVal = e.target.value.replace(/ /g, "");
         let inputNumbersOnly = inputVal.replace(/\D/g, ""); // Allows only numerical values/inputs
@@ -61,6 +65,42 @@ function Fee(e) {
         setZip(value);
     };
 
+    function randomNumberInRange(min, max) {
+        //console.log(Math.floor(Math.random() * (max - min + 1)) + min)
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    const handleClick = () => {
+        const value = randomNumberInRange(1, 18);
+        //console.log(value)
+        setRandNum(value);
+    };
+
+    // function randomNumberInRangePOINTS() {
+    //     //console.log(Math.floor(Math.random() * (max - min + 1)) + min)
+    //     setPoints(Math.floor(Math.random() * (900000 - 1 + 1)) + 1)
+    //     return Math.floor(Math.random() * (900000 - 1 + 1)) + 1;
+    // }
+
+    /*
+    const handlePoints = () => {
+        const value = randomNumberInRangePOINTS(1, Number.MAX_SAFE_INTEGER);
+        setPoints(value);
+    }*/
+
+    const handleChecked = (e) => {
+
+        if (e.target.checked) {
+            console.log('✅ Checkbox is checked');
+            //console.log(document.getElementById("mailingAddress").value)
+            let sameAddress = document.getElementById("billingAddress").value 
+            setAddress(sameAddress);
+        } else {
+            console.log('⛔️ Checkbox is NOT checked');
+        }
+        setChecked(current => !current);
+    };
+
     return(
         <section>
             <div>
@@ -68,6 +108,15 @@ function Fee(e) {
                 <form action="/fee" method="POST">
                     <div>
                         <span>
+                            <div>
+                                <label for="paymentType">Payment Type: &nbsp;
+                                <select name="paymentType" id="paymentType">
+                                    <option value="creditCard">Credit Card(s)</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Check">Check</option>
+                                </select>
+                                </label>
+                            </div>
                             <div>
                                 <label for="cardBrand">Brand: &nbsp;
                                 <select name="cardBrand" id="cardBrand">
@@ -108,12 +157,22 @@ function Fee(e) {
                                 </label>
                             </div>
                             <div>
-                                <label>Is the billing address above the same as the mailing address? &nbsp;</label>
-                                <input type="checkbox" id="checkbox" name="checkbox"></input>
+                                <label for="dinerNum">Diner #: {ranNum} &nbsp;
+                                <input type="button" id="dinerNum" name="dinerNum" className="paymentButton" onClick={handleClick}></input>
+                                </label>
                             </div>
                             <div>
-                                <input type="submit" value="Submit" className="inp-text-input-submit-payment"></input>
+                                <label>Is the billing address above the same as the mailing address? &nbsp;</label>
+                                <input type="checkbox" id="mailingAddress" name="mailingAddress" value={sameAdd} onChange={handleChecked}></input>
                             </div>
+                            {/*
+                            <div>
+                                <label for="points">Points: {ranPoints} &nbsp;
+                                <input type="hidden" id="points" name="points" value={ranPoints} someFunction={this.randomNumberInRangePOINTS()}></input>
+                                </label>
+                            </div>
+                            */}
+                            <input type="submit" value="Submit" className="inp-text-input-submit-payment"/>
                         </span>
                     </div>
                     <div>
