@@ -115,6 +115,7 @@ app.post('/fee', async (req, res) => {
     const zipCode = req.body.zipCode;
     const dinerNum = req.body.dinerNum;
     const mailingAddress = req.body.mailingAddress;
+    const points = req.body.points;
 
     const payment = new Payments({paymentType: paymentType,
                     cardBrand: cardBrand, 
@@ -125,6 +126,7 @@ app.post('/fee', async (req, res) => {
                     billingAddress,
                     zipCode: zipCode,
                     dinerNum: dinerNum,
+                    points: points,
                     mailingAddress
                 });
 
