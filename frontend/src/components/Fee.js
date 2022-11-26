@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState} from 'react';
-
+//testBranch
 //import {Link} from 'react-router-dom';
 
-function Fee(e) {
+function Fee() {
 
     const [number, setNumber] = useState('')
     //const [name, setName] = useState('')
@@ -68,6 +68,7 @@ function Fee(e) {
         setZip(value);
     };
 
+
     //OLD: USED FOR GENERATING RANDOM NUMBERS FOR DINER NUMBER
     // function randomNumberInRange(min, max) {
     //     //console.log(Math.floor(Math.random() * (max - min + 1)) + min)
@@ -111,6 +112,7 @@ function Fee(e) {
             console.log('⛔️ Checkbox is NOT checked');
         }
         setChecked(current => !current);
+
     };
 
     return(
@@ -121,11 +123,13 @@ function Fee(e) {
                     <div>
                         <span>
                             <div>
+
                                 <label for="paymentType">Payment Type: &nbsp;
                                 <select name="paymentType" id="paymentType">
                                     <option value="creditCard">Credit Card(s)</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Check">Check</option>
+
                                 </select>
                                 </label>
                             </div>
@@ -169,6 +173,7 @@ function Fee(e) {
                                 </label>
                             </div>
                             <div>
+
                                 <label for="dinerNum">Diner #: {document.getElementById('dinerNum').value} &nbsp;
                                 <input type="hidden" id="dinerNum" name="dinerNum" className="paymentButton" value={document.getElementById('dinerNum').value}></input>
                                 </label>
@@ -181,6 +186,7 @@ function Fee(e) {
                                 <label for="points">Points: {document.getElementById('points').value} &nbsp;
                                 <input type="hidden" id="points" name="points" value={document.getElementById('points').value}></input>
                                 </label>
+
                             </div>
                             <input type="submit" value="Submit" className="inp-text-input-submit-payment"/>
                         </span>
