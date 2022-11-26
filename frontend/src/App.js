@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Reserve from './components/Reserve';
 import Fee from './components/Fee';
 import Home from './components/Home';
+import Reserve2 from './components/Reserve2';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 //npm install react-router-dom@5.2.0
 //testBranch
@@ -27,6 +28,7 @@ function App() {
               <Route path ="/login-fail" exact component = {LoginFail} />
               <Route path ="/register" exact component = {Register} />
               <Route path ="/fee" exact component = {Fee} />
+              <Route path ="/reserve2" exact component = {Reserve2}/>
             </Switch>
           </div>
         </header>

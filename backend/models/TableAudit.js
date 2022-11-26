@@ -10,6 +10,11 @@ const tableAuditSchema = new Schema({
     occupied: {type:Array},
     availCapacity: {type:Number},
     lastestUpdate: {type:Boolean},
+    fname : {type: String},
+    lname : {type: String},
+    email : {type: String},
+    phone: {type: String},
+    comment: {type: String},
     users: [{type:Schema.Types.ObjectID, ref:'users'}]
 });
 

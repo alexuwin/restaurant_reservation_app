@@ -5,10 +5,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Payments = require('./models/Payments.js');
 const Users = require('./models/Users.js');
-const UserInfo = require('./models/UserInfo.js');
 const TableAudit = require('./models/TableAudit.js');
 const session = require('express-session');
-const { Router } = require('express');
+const { Router, response } = require('express');
 require('dotenv/config'); //enables using .env file
 
 const app = express();
@@ -59,8 +58,17 @@ app.listen(PORT, () => {
 //     res.redirect('/login-fail');
 // })
 
+var database
+
 app.post('/genTable',function(req,res) {
     console.log('Trial');
+
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const comment = req.body.comment;
+
     const totalGuest=req.body.totalGuest;
     console.log(totalGuest);
     const resDate = req.body.resDate;
@@ -184,7 +192,7 @@ app.post('/genTable',function(req,res) {
         //check if the number of guest exceed the available capacity
         if(totalGuest>result.availCapacity){
             console.log("Exceed capacity!")
-            res.redirect('/reserve');
+            res.redirect('/reserve2');
         }
         else{
             var availableTblsArray = result.availTables; //ARRAY 1
@@ -213,7 +221,12 @@ app.post('/genTable',function(req,res) {
                 availTables: newAvailTables,
                 occupied: newOccupied,
                 availCapacity: newAvailCapacity,
-                lastestUpdate: true
+                lastestUpdate: true,
+                fname:fname,
+                lname: lname,
+                email: email,
+                phone: phone,
+                comment: comment
             });
 
             console.log(newBooking2)
@@ -226,7 +239,7 @@ app.post('/genTable',function(req,res) {
                 }else{
                     console.log('Added new res!');
                 }
-                res.redirect('/reserve')
+                res.redirect('/fee')
                 res.end();
             })
             
@@ -252,7 +265,12 @@ app.post('/genTable',function(req,res) {
             availTables: availTables,
             occupied: occupied,
             availCapacity: availCapacity,
-            lastestUpdate: true
+            lastestUpdate: true,
+            fname:fname,
+            lname: lname,
+            email: email,
+            phone: phone,
+            comment: comment
         });
         console.log(newBooking)
 
@@ -262,7 +280,7 @@ app.post('/genTable',function(req,res) {
             }else{
                 console.log('Added new res!');
             }
-            res.redirect('/reserve')
+            res.redirect('/fee')
             res.end();
         })
         
@@ -270,6 +288,13 @@ app.post('/genTable',function(req,res) {
 
 });
 
+app.get('/results',function(req,res){
+    // res.json('This is trial')
+    TableAudit.findOne({lastestUpdate:true}).then((result)=>
+    {
+        res.json(result.occupied)
+    })
+})
 
 // app.get('/outputTables',async(req,res)=>{
 //     const tablesAudit = mongoose.Schema.TableAudit;
@@ -315,37 +340,7 @@ app.post('/login', (req, res) => {
 
 
 
-app.post('/postUserInfo', async(req, res) =>{
-    const fname = req.body.fname;
-    const lname = req.body.lname;
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const comment = req.body.comment;
 
-    const userInfo = new UserInfo({fname:fname,
-                        lname: lname,
-                        email: email,
-                        phone: phone,
-                        comment: comment
-                    });
-    
-    try {
-        await userInfo.save(async(err,newUserInfoResult)=>{
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('User Info added!');
-            }
-            res.redirect('/reserve')
-            res.end();
-        })
-    }
-    catch(err){
-        console.log(err);
-        res.redirect('/login')
-        res.end('User Info not added!');
-    }
-});
 
 app.post('/register', async (req, res) => {
     const name = req.body.name;
@@ -386,6 +381,9 @@ app.post('/fee', async (req, res) => {
     const billingAddress = req.body.billingAddress;
     const zipCode = req.body.zipCode;
     const dinerNum = req.body.dinerNum;
+    const mailingAddress = req.body.mailingAddress;
+    const points = req.body.points;
+
 
     const payment = new Payments({paymentType: paymentType,
                     cardBrand: cardBrand, 
@@ -393,9 +391,11 @@ app.post('/fee', async (req, res) => {
                     expDate: expDate,
                     cardHolder: cardHolder,
                     cvv: cvv,
-                    billingAdress: billingAddress,
+                    billingAddress,
                     zipCode: zipCode,
-                    dinerNum: dinerNum
+                    dinerNum: dinerNum,
+                    points: points,
+                    mailingAddress
                 });
 
     //const newPayment = new Schemas.Payments(payment);
@@ -417,5 +417,4 @@ app.post('/fee', async (req, res) => {
         res.end('User payment not added!');
     }
 });
-
 

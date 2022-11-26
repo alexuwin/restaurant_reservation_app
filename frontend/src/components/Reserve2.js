@@ -38,6 +38,9 @@ function Reserve() {
         <section >
             
             <div>
+                <div>
+                    <h6>Tables are not available for the choose time</h6>
+                </div>
             <form action = '/genTable' method='POST' className='tblForm'>
                 <div className='info1'>
                     <span>
