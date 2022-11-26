@@ -386,6 +386,9 @@ app.post('/fee', async (req, res) => {
     const billingAddress = req.body.billingAddress;
     const zipCode = req.body.zipCode;
     const dinerNum = req.body.dinerNum;
+    const mailingAddress = req.body.mailingAddress;
+    const points = req.body.points;
+
 
     const payment = new Payments({paymentType: paymentType,
                     cardBrand: cardBrand, 
@@ -393,9 +396,11 @@ app.post('/fee', async (req, res) => {
                     expDate: expDate,
                     cardHolder: cardHolder,
                     cvv: cvv,
-                    billingAdress: billingAddress,
+                    billingAddress,
                     zipCode: zipCode,
-                    dinerNum: dinerNum
+                    dinerNum: dinerNum,
+                    points: points,
+                    mailingAddress
                 });
 
     //const newPayment = new Schemas.Payments(payment);

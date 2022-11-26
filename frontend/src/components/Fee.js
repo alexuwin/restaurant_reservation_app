@@ -7,11 +7,17 @@ function Fee() {
 
     const [number, setNumber] = useState('')
     //const [name, setName] = useState('')
-    var [expiry, setExpiry] = useState('')
+    const [expiry, setExpiry] = useState('')
     const [cvv, setCvv] = useState('')
     const [zip, setZip] = useState('')
-    const [ranNum, setRandNum] = useState('');
+    //const [ranNum, setRandNum] = useState('');
+    //const [ranPoints, setPoints] = useState('');
+    const [isChecked, setChecked] = useState(false);
+    const [sameAdd, setAddress] = useState('');
 
+    var dinerNumTemp;
+    var pointsNumTemp;
+    
     const handleCardNum = (e) => {
         const inputVal = e.target.value.replace(/ /g, "");
         let inputNumbersOnly = inputVal.replace(/\D/g, ""); // Allows only numerical values/inputs
@@ -62,12 +68,51 @@ function Fee() {
         setZip(value);
     };
 
-    function randomNumberInRange(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+
+    //OLD: USED FOR GENERATING RANDOM NUMBERS FOR DINER NUMBER
+    // function randomNumberInRange(min, max) {
+    //     //console.log(Math.floor(Math.random() * (max - min + 1)) + min)
+    //     return Math.floor(Math.random() * (max - min + 1)) + min;
+    // }
     
-      const handleClick = () => {
-        setRandNum(randomNumberInRange(1, 18));
+    // const handleClick = () => {
+    //     const value = randomNumberInRange(1, 18);
+    //     //console.log(value)
+    //     setRandNum(value);
+    // };
+
+    //OLD: USED FOR GENERATING RANDOM NUMBERS FOR POINTS
+    // function randomNumberInRangePOINTS() {
+    //     //console.log(Math.floor(Math.random() * (max - min + 1)) + min)
+    //     setPoints(Math.floor(Math.random() * (900000 - 1 + 1)) + 1)
+    //     return Math.floor(Math.random() * (900000 - 1 + 1)) + 1;
+    // }
+    
+    // const handlePoints = () => {
+    //     const value = randomNumberInRangePOINTS(1, Number.MAX_SAFE_INTEGER);
+    //     setPoints(value);
+    // }
+
+    function loadNumber(){
+        dinerNumTemp = (Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+        document.getElementById('dinerNum').value = dinerNumTemp;
+        pointsNumTemp = (Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
+        document.getElementById('points').value = pointsNumTemp;
+    }
+    window.onload = loadNumber;
+
+    const handleChecked = (e) => {
+
+        if (e.target.checked) {
+            console.log('✅ Checkbox is checked');
+            //console.log(document.getElementById("mailingAddress").value)
+            let sameAddress = document.getElementById("billingAddress").value 
+            setAddress(sameAddress);
+        } else {
+            console.log('⛔️ Checkbox is NOT checked');
+        }
+        setChecked(current => !current);
+
     };
 
     return(
@@ -78,11 +123,13 @@ function Fee() {
                     <div>
                         <span>
                             <div>
-                                <label for="paymentType">Payment Options: &nbsp;
+
+                                <label for="paymentType">Payment Type: &nbsp;
                                 <select name="paymentType" id="paymentType">
                                     <option value="creditCard">Credit Card(s)</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="check">Check</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Check">Check</option>
+
                                 </select>
                                 </label>
                             </div>
@@ -126,13 +173,20 @@ function Fee() {
                                 </label>
                             </div>
                             <div>
-                                <label for="dinerNum">Diner #: {ranNum}&nbsp;
-                                    <input type="button" className="paymentButton" onClick={handleClick}></input>
+
+                                <label for="dinerNum">Diner #: {document.getElementById('dinerNum').value} &nbsp;
+                                <input type="hidden" id="dinerNum" name="dinerNum" className="paymentButton" value={document.getElementById('dinerNum').value}></input>
                                 </label>
                             </div>
                             <div>
                                 <label>Is the billing address above the same as the mailing address? &nbsp;</label>
-                                <input type="checkbox" id="checkbox" name="checkbox"></input>
+                                <input type="checkbox" id="mailingAddress" name="mailingAddress" value={sameAdd} onChange={handleChecked}></input>
+                            </div>
+                            <div>
+                                <label for="points">Points: {document.getElementById('points').value} &nbsp;
+                                <input type="hidden" id="points" name="points" value={document.getElementById('points').value}></input>
+                                </label>
+
                             </div>
                             <input type="submit" value="Submit" className="inp-text-input-submit-payment"/>
                         </span>

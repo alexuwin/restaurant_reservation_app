@@ -333,6 +333,17 @@
   text-align: center;
 }
 
+.paymentButton{
+  position: relative;
+  margin-right: -10px;
+  width: 1.7em;
+  margin-top: 0px;
+  padding: 5%;
+  height: 28px;
+  border-radius: 15px;
+  background-color: rgb(163, 104, 104);
+}
+
 /*For password visibility toggle*/
 .password{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
