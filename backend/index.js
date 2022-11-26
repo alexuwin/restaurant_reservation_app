@@ -4,8 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Payments = require('./models/Payments.js');
-const Users = require('./models/Users.js')
+const Users = require('./models/Users.js');
+const UserInfo = require('./models/UserInfo.js');
+const TableAudit = require('./models/TableAudit.js');
 const session = require('express-session');
+const { Router } = require('express');
 require('dotenv/config'); //enables using .env file
 
 const app = express();
@@ -46,7 +49,239 @@ app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}.`);
 })
 
-//OTHER
+// app.set('view engine', 'ejs');
+// app.get('/',function(req,res){
+//     res.render('reserve.ejs');
+// });
+
+// app.post('/genTable',function(req,res){
+//     console.log("trial");
+//     res.redirect('/login-fail');
+// })
+
+app.post('/genTable',function(req,res) {
+    console.log('Trial');
+    const totalGuest=req.body.totalGuest;
+    console.log(totalGuest);
+    const resDate = req.body.resDate;
+    console.log(resDate);
+    const timeFrame = req.body.timeFrame;
+    console.log(timeFrame);
+
+    var availTables = new Array;
+    var occupied = new Array;
+    var availCapacity;
+
+    var tablesArray = ['t1','t2','t3','t4','t5','t6','t7','t8','t9','t10','t11'];
+    var tableCapacity = [2,2,2,2,4,4,4,4,6,6,8];
+    var tableFlag = [true,true,true,true,true,true,true,true,true,true,true];
+    
+    function findTable(tablesArray,tableCapacity,tableFlag,totalGuest){
+        var resultSet = new Array;
+        var count = 0;
+        resultSet[count]=new Array;
+        for(let i=0;i<tablesArray.length;i++){
+            let sum = 0;
+            if(tableFlag[i]==false){break;}
+            for(let j=i;j<tablesArray.length;j++){
+                if(tableFlag[j]==false){break;}
+                sum+=tableCapacity[j];
+                resultSet[count].push(tablesArray[j]);
+                if(sum>=totalGuest){
+                    //last digit storing the sum
+                    resultSet[count].push(sum);
+                    count++;
+                    resultSet[count]= new Array;
+                    break;
+                }
+            }
+        }
+        return resultSet;
+    }
+
+    var tablesSet = findTable(tablesArray,tableCapacity,tableFlag,totalGuest);
+
+    function findSet(tablesSet,tablesArray,tableCapacity,tableFlag,totalGuest,availTables,occupied,availCapacity){
+    
+    var initialCapacity = 0;
+    for(let i=0;i<tablesArray.length;i++){
+        initialCapacity+=tableCapacity[i];
+    }
+
+    var tableSetLength = (tablesSet.length)-1;
+
+    console.log("TRIAL HERE");
+
+    for(let i=0;i<tableSetLength;i++){
+        console.log(tablesSet[i]);
+    }
+    
+    //find tables set with least number of tables
+    var numOfTables = new Array;
+    //find tables set with least different in sum
+    var differentArray = new Array;
+    for(let i = 0;i<tableSetLength;i++){
+        var lastDigitPos = (tablesSet[i].length)-1;
+        //last elelment pos also the length of each set
+        numOfTables[i]=lastDigitPos;
+        differentArray[i]=tablesSet[i][lastDigitPos]-totalGuest;
+    }
+
+    for(let i=0;i<tableSetLength;i++){
+        console.log(differentArray[i]);
+    }
+
+    for(let i=0;i<tableSetLength;i++){
+        console.log(numOfTables[i]);
+    }
+
+    console.log(tableSetLength);
+
+    var temp = new Array;
+
+    for(let i=0;i<tableSetLength;i++){
+        temp[i]=differentArray[i]+numOfTables[i];
+    }
+
+    var getMinVal = Math.min(...temp);
+    var getMinIndex = temp.indexOf(getMinVal);
+
+    console.log("Final answer set");
+    console.log(tablesSet[getMinIndex])
+    
+    //now from the tablesSet push to occupied array and set avail false for choosen tables
+    console.log("TRIAL");
+    for(let i=0;i<(tablesSet[getMinIndex].length)-1;i++){
+        var getTblName = tablesSet[getMinIndex][i];
+        //console.log(getTblName);
+        var getTblPos = tablesArray.indexOf(getTblName);
+        if(getTblPos>-1){
+            tableFlag[getTblPos]=false;
+            occupied.push(getTblName);
+        }
+    }
+
+    for(let i=0;i<tablesArray.length;i++){
+        if(tableFlag[i]==true){
+            availTables.push(tablesArray[i]);
+        }
+    }
+
+    availCapacity = initialCapacity - tablesSet[getMinIndex][(tablesSet[getMinIndex].length)-1];
+    console.log("AVAIL CAPACITY");
+    console.log(availCapacity);
+
+    return availCapacity;
+    }
+
+    availCapacity = findSet(tablesSet,tablesArray,tableCapacity,tableFlag,totalGuest,availTables,occupied,availCapacity)
+
+    TableAudit.findOneAndUpdate({resDate:resDate,timeFrame:timeFrame,lastestUpdate:true},{lastestUpdate:false}).then((result)=>{
+        
+        //WHEN THERE ARE OTHER RESERVATION ON THE DATE
+        console.log(result.resDate)
+        console.log(result.availCapacity)
+        //check if the number of guest exceed the available capacity
+        if(totalGuest>result.availCapacity){
+            console.log("Exceed capacity!")
+            res.redirect('/reserve');
+        }
+        else{
+            var availableTblsArray = result.availTables; //ARRAY 1
+            var lengthOfArray = availableTblsArray.length;
+            //generate new capacity arrays for remain tables
+            var newTableCapacity = new Array; //ARRAY 2
+            //generate new flag arrays for ramian tables
+            var newFlag = new Array;
+            for(let i=0;i<lengthOfArray;i++){
+                var pos = tablesArray.indexOf(availableTblsArray[i])
+                newTableCapacity[i]=tableCapacity[pos];
+                newFlag[i]=true;
+            }
+            
+            var newTableSet = findTable(availableTblsArray,newTableCapacity,newFlag,totalGuest)
+            
+            var newAvailTables = new Array;
+            var newOccupied = new Array;
+            var newAvailCapacity;
+            newAvailCapacity = findSet(newTableSet,availableTblsArray,newTableCapacity,newFlag,totalGuest,newAvailTables,newOccupied,newAvailCapacity)
+
+            const newBooking2 = new TableAudit({
+                totalGuests: totalGuest,
+                resDate:resDate,
+                timeFrame:timeFrame,
+                availTables: newAvailTables,
+                occupied: newOccupied,
+                availCapacity: newAvailCapacity,
+                lastestUpdate: true
+            });
+
+            console.log(newBooking2)
+
+            
+
+            newBooking2.save(async(err2, newRes)=>{
+                if(err2){
+                    console.log(err2);
+                }else{
+                    console.log('Added new res!');
+                }
+                res.redirect('/reserve')
+                res.end();
+            })
+            
+        }
+
+
+    }).catch(async(err)=>{
+
+        //WHEN NO RESERVATION ON THE DATE
+        console.log("No reserve on the date")
+        
+
+        // if(totalGuest=='2'){
+        //     availTables.push('t2');
+        //     tableFlag[0]=false;
+        //     occupied.push('t1');
+        // }
+
+        const newBooking = new TableAudit({
+            totalGuests: totalGuest,
+            resDate: resDate,
+            timeFrame: timeFrame,
+            availTables: availTables,
+            occupied: occupied,
+            availCapacity: availCapacity,
+            lastestUpdate: true
+        });
+        console.log(newBooking)
+
+        await newBooking.save(async(err2, newRes)=>{
+            if(err2){
+                console.log(err2);
+            }else{
+                console.log('Added new res!');
+            }
+            res.redirect('/reserve')
+            res.end();
+        })
+        
+    })
+
+});
+
+
+// app.get('/outputTables',async(req,res)=>{
+//     const tablesAudit = mongoose.Schema.TableAudit;
+//     const tbls = await tablesAudit.findOne({}).exec((err, tblsData) =>{
+//         if(err) throw err;
+//         if(tblsData){
+//             res.end(JSON.stringify(tblsData));
+//         }else{
+//             res.end();
+//         }
+//     })
+// });
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
@@ -75,6 +310,41 @@ app.post('/login', (req, res) => {
     }).catch((err) => {
         console.log(err);
     })*/
+});
+
+
+
+
+app.post('/postUserInfo', async(req, res) =>{
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const comment = req.body.comment;
+
+    const userInfo = new UserInfo({fname:fname,
+                        lname: lname,
+                        email: email,
+                        phone: phone,
+                        comment: comment
+                    });
+    
+    try {
+        await userInfo.save(async(err,newUserInfoResult)=>{
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('User Info added!');
+            }
+            res.redirect('/reserve')
+            res.end();
+        })
+    }
+    catch(err){
+        console.log(err);
+        res.redirect('/login')
+        res.end('User Info not added!');
+    }
 });
 
 app.post('/register', async (req, res) => {
@@ -147,3 +417,5 @@ app.post('/fee', async (req, res) => {
         res.end('User payment not added!');
     }
 });
+
+
