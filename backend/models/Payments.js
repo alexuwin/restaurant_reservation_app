@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//testBranch
 const paymentSchema = new Schema({
     paymentType: {type:String, required:true},
     cardBrand: {type:String, required:true},
@@ -17,7 +16,6 @@ const paymentSchema = new Schema({
     users: [{type:Schema.Types.ObjectID, ref:'users'}]
 });
 
-const Payments = mongoose.model('Payments', paymentSchema, 'payments');
-//const mySchemas = {'Users':Users, 'Payments':Payments};
+const Payments = mongoose.model('payments', paymentSchema, 'payments');
 
 module.exports = Payments;

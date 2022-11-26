@@ -1,5 +1,5 @@
 //dev script (in package.json) can be called live or build instead of "dev" once completed
-//testBranch
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -10,10 +10,8 @@ require('dotenv/config'); //enables using .env file
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-app.use(express.json()); //added
-app.use(bodyParser.urlencoded({extended:true})); //modified, false to true
-app.use(express.static('public')); //added
 
 app.use(
     session({
@@ -119,7 +117,6 @@ app.post('/fee', async (req, res) => {
     const mailingAddress = req.body.mailingAddress;
     const points = req.body.points;
 
-
     const payment = new Payments({paymentType: paymentType,
                     cardBrand: cardBrand, 
                     cardNumber: cardNumber,
@@ -134,7 +131,7 @@ app.post('/fee', async (req, res) => {
                 });
 
     //const newPayment = new Schemas.Payments(payment);
-    console.log(payment);
+
     try {
         await payment.save(async(err, newPaymentResult) => {
             if (err) {
@@ -142,13 +139,12 @@ app.post('/fee', async (req, res) => {
             } else {
                 console.log('New payment created!');
             }
-            res.redirect('/fee')
-            res.end('New user payment created!');
+            res.redirect('/')
+            res.end();
         });
-    } catch(err) {
-        console.log(err);
-        console.log('caught error in fee!')
-        res.redirect('/payment-fail')
-        res.end('User payment not added!');
+        } catch(err) {
+            console.log(err);
+            res.redirect('/payment-fail')
+            res.end('User payment not added!');
     }
 });

@@ -1,5 +1,4 @@
 /*For entire app, careful when adding more as it may affect every page*/
-/*testBranch*/
 .App {
   text-align: center;
   background-color: hsl(0, 0%, 100%);
@@ -27,16 +26,6 @@
 
 .quote{
   font-size: 20px
-}
-
-.paymentButton{
-  position: relative;
-  padding: 5%;
-  bottom: -11px;
-  height: 0px;
-  width: 15px;
-  border-radius: 25px;
-  background-color: rgb(163, 104, 104);
 }
 
 /*
