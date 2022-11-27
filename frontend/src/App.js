@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Login from './components/Login';
 import LoginFail from './components/LoginFail';
 import Register from './components/Register';
+import RegisterFail from './components/RegisterFail';
 import Reserve from './components/Reserve';
 import Fee from './components/Fee';
 import Home from './components/Home';
@@ -27,6 +28,7 @@ function App() {
               <Route path ="/login" exact component = {Login} />
               <Route path ="/login-fail" exact component = {LoginFail} />
               <Route path ="/register" exact component = {Register} />
+              <Route path ="/register-fail" exact component = {RegisterFail} />
               <Route path ="/fee" exact component = {Fee} />
               <Route path ="/reserve2" exact component = {Reserve2}/>
             </Switch>

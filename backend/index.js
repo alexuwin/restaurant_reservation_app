@@ -349,21 +349,33 @@ app.post('/register', async (req, res) => {
                   email: email,
                   isGuest: false
                 });
-    try {
-        await user.save( async(err, newUserResult) => {
-            if (err) {
+
+    Users.findOne({username:username}).then((result)=>{
+        if(!result){
+            //console.log('User does NOT exist.');
+            try {
+                user.save( async(err, newUserResult) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('New user created!');
+                    }
+                    res.redirect('/login')
+                    res.end();
+                });
+            } catch(err) {
                 console.log(err);
-            } else {
-                console.log('New user created!');
+                res.redirect('/register-fail')
+                res.end('User could not be added!');
             }
-            res.redirect('/login')
+        } else {
+            console.log('User already exists!');
+            res.redirect('/register-fail')
             res.end();
-        });
-    } catch(err) {
+        }
+    }).catch((err) => {
         console.log(err);
-        res.redirect('/register-fail')
-        res.end('User not added!');
-    }
+    })
 });
 
 app.post('/fee', async (req, res) => {
