@@ -1,16 +1,23 @@
-import React from 'react';
-import {useState} from 'react';
-//testBranch
+import React, { useState } from 'react';
 //import {Link} from 'react-router-dom';
 
 function Fee() {
 
+    // const temp1 = (Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
+    // const temp2 = (Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+
     const [number, setNumber] = useState('')
     //const [name, setName] = useState('')
-    var [expiry, setExpiry] = useState('')
+    const [expiry, setExpiry] = useState('')
     const [cvv, setCvv] = useState('')
     const [zip, setZip] = useState('')
-    const [ranNum, setRandNum] = useState('');
+    const [ranNum, setRandNum] = useState(Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+    const [ranPoints, setPoints] = useState(Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
+    const [isChecked, setChecked] = useState(false);
+    const [sameAdd, setAddress] = useState('');
+
+    // var dinerNumTemp;
+    // var pointsNumTemp;
 
     const handleCardNum = (e) => {
         const inputVal = e.target.value.replace(/ /g, "");
@@ -33,6 +40,7 @@ function Fee() {
         //var inputChar = String.fromCharCode(e.keyCode);
         var code = e.keyCode;
         var allowedKeys = [8];
+
         if (allowedKeys.indexOf(code) !== -1) {
           return;
         }
@@ -62,12 +70,36 @@ function Fee() {
         setZip(value);
     };
 
-    function randomNumberInRange(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    const handlePoints = (e) => {
+        // const value = (Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
+        // console.log(value);
+        setPoints(Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
     }
-    
-      const handleClick = () => {
-        setRandNum(randomNumberInRange(1, 18));
+
+    const handleDinerNum = (e) => {
+        //const value = (Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+        //console.log(value);
+        setRandNum(Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+    }
+
+    // function loadNumber(){
+    //     dinerNumTemp = (Math.floor(Math.random() * (16 - 1 + 1)) + 1);
+    //     document.getElementById('dinerNum').value = dinerNumTemp;
+    //     pointsNumTemp = (Math.floor(Math.random() * (1500 - 1 + 1)) + 1);
+    //     document.getElementById('points').value = pointsNumTemp;
+    // }
+    // window.onload = loadNumber;
+
+    const handleChecked = (e) => {
+        if (e.target.checked) {
+            console.log('✅ Checkbox is checked');
+            //console.log(document.getElementById("mailingAddress").value)
+            let sameAddress = document.getElementById("billingAddress").value 
+            setAddress(sameAddress);
+        } else {
+            console.log('⛔️ Checkbox is NOT checked');
+        }
+        setChecked(current => !current);
     };
 
     return(
@@ -126,13 +158,18 @@ function Fee() {
                                 </label>
                             </div>
                             <div>
-                                <label for="dinerNum">Diner #: {ranNum}&nbsp;
-                                    <input type="button" className="paymentButton" onClick={handleClick}></input>
+                                <label for="dinerNum">Diner #: {ranNum} &nbsp;
+                                <input type="hidden" id="dinerNum" name="dinerNum" value={ranNum}></input>
                                 </label>
                             </div>
                             <div>
                                 <label>Is the billing address above the same as the mailing address? &nbsp;</label>
-                                <input type="checkbox" id="checkbox" name="checkbox"></input>
+                                <input type="checkbox" id="mailingAddress" name="mailingAddress" value={sameAdd} onChange={handleChecked}></input>
+                            </div>
+                            <div>
+                                <label for="points">Points: {ranPoints} &nbsp;
+                                <input type="hidden" id="points" name="points" value={ranPoints}></input>
+                                </label>
                             </div>
                             <input type="submit" value="Submit" className="inp-text-input-submit-payment"/>
                         </span>

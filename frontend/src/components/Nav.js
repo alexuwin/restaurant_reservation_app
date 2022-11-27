@@ -29,6 +29,9 @@ function Nav() {
                     <a href="/login">Login<Link to='/login'></Link></a>
                 </li>
                 <li>
+                    <a href="/register">Register<Link to='/register'></Link></a>
+                </li>
+                <li>
                     <a href="/fee">Payment<Link to='/fee'></Link></a>
                 </li>
             </ul>

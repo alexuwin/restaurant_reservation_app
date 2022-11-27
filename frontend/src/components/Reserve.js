@@ -89,7 +89,7 @@ function Reserve() {
 
                             <div className='pad'>
                                 <p>Contact Phone&emsp;&emsp;</p>
-                                <input  id='phone' name='phone' placeholder='phonenumber'></input>
+                                <input  id='phone' name='phone' placeholder='phone number'></input>
                             </div>
 
                             <div className='pad'>
@@ -101,7 +101,7 @@ function Reserve() {
                     </div>
                     <br></br><br></br>
                     <div className='SubmitButton'>
-                        <button type='submit' className='btn btn-primary tblButton'>Make a Reserve</button>
+                        <button type='submit' className='btn btn-primary tblButton'>Make a Reservation</button>
                     </div>
                 </span>
                 </div>

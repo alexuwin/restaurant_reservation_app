@@ -337,11 +337,6 @@ app.post('/login', (req, res) => {
     })*/
 });
 
-
-
-
-
-
 app.post('/register', async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -386,20 +381,21 @@ app.post('/fee', async (req, res) => {
 
 
     const payment = new Payments({paymentType: paymentType,
-                    cardBrand: cardBrand, 
-                    cardNumber: cardNumber,
-                    expDate: expDate,
-                    cardHolder: cardHolder,
-                    cvv: cvv,
-                    billingAddress,
-                    zipCode: zipCode,
-                    dinerNum: dinerNum,
-                    points: points,
-                    mailingAddress
-                });
+                        cardBrand: cardBrand, 
+                        cardNumber: cardNumber,
+                        expDate: expDate,
+                        cardHolder: cardHolder,
+                        cvv: cvv,
+                        billingAddress,
+                        zipCode: zipCode,
+                        dinerNum: dinerNum,
+                        points: points,
+                        mailingAddress
+                    });
 
     //const newPayment = new Schemas.Payments(payment);
     console.log(payment);
+
     try {
         await payment.save(async(err, newPaymentResult) => {
             if (err) {
@@ -417,4 +413,3 @@ app.post('/fee', async (req, res) => {
         res.end('User payment not added!');
     }
 });
-
