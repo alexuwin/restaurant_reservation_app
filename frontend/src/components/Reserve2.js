@@ -6,48 +6,54 @@ import reportWebVitals from "./../reportWebVitals";
 
 
 
-function Reserve() {
+function Reserve2() {
+
 
     const [guestnum, setGuestNum] = useState(1);
-    const minGuest = 0;
+    const minGuest = 1;
     const maxGuest = 16;
 
-    const handleNumGuest = event => {
-        const value = Math.max(minGuest,Math.min(maxGuest, Number(event.target.value)));
+    const handleNumGuest = (e) => {
+        const inputVal = e.target.value.replace(/ /g,"");
+        let value = inputVal.replace(/\D/g, "");
+        value = Math.max(minGuest,Math.min(maxGuest, Number(value)));
         setGuestNum(value)
     }
 
     const [reserveDate, setDate] = useState(new Date())
 
-    // GET
-    // useEffect(()=>{
-    //     fetchItems();
-    // },[]);
+    const [fname, setFName] = useState('');
+    const handleFNameInput = event => {
+        const result = event.target.value.replace(/[^a-z]/gi, '');
+        setFName(result);
+    }
 
-    // const[items,setItems] = useState([]);
+    const [lname, setLName] = useState('');
+    const handleLNameInput = event => {
+        const result = event.target.value.replace(/[^a-z]/gi, '');
+        setLName(result);
+    }
 
-    // const fetchItems = async()=>{
-    //     const data = await fetch('/outputTables');
-    //     const items = await data.json();
-    //     setItems(items);
-    // }
+    const [phoneNum, setPhoneNum] = useState('');
+    const handlePhoneNum = (e) => {
+        const inputVal = e.target.value.replace(/ /g,"");
+        let result = inputVal.replace(/\D/g, "");
+        setPhoneNum(result);
+    }
 
-    // GET
-
+   
     return(
         <section >
             
             <div>
-                <div>
-                    <h6>Tables are not available for the choose time</h6>
-                </div>
+                <h1>There is no available tables in the timeframe! Please pick a different day.</h1>
             <form action = '/genTable' method='POST' className='tblForm'>
                 <div className='info1'>
                     <span>
                     <div className='GuestPick'>
                         <span>
                                 <p>Please pick number of guests (between 1 and 16): &emsp;&emsp;&emsp;</p>
-                                <input id='totalGuest' name ='totalGuest' value={guestnum} onChange={handleNumGuest}></input>
+                                <input type={'number'} id='totalGuest' name ='totalGuest' value={guestnum} onChange={handleNumGuest}></input>
                         </span>
                     </div>
                     
@@ -77,22 +83,22 @@ function Reserve() {
                         <span>
                             <div className='pad'>
                                 <p>First Name&emsp;&emsp;</p>
-                                <input  id='fname' name='fname' placeholder='first name' required></input>
+                                <input id='fname' value={fname} onChange={handleFNameInput} name='fname' placeholder='first name' required></input>
                             </div>
                             
                             <div className='pad'>
                                 <p>Last Name&emsp;&emsp;</p>
-                                <input  id='lname' name='lname' placeholder='last name' required></input>
+                                <input  id='lname' value={lname} onChange={handleLNameInput} name='lname' placeholder='last name' required></input>
                             </div>
                             
                             <div className='pad'>
                                 <p>Email&emsp;&emsp;</p>
-                                <input  id='email' name='email' placeholder='startdust@gmail.com' required></input>
+                                <input type={'email'} id='email' name='email' placeholder='startdust@gmail.com' required></input>
                             </div>
 
                             <div className='pad'>
                                 <p>Contact Phone&emsp;&emsp;</p>
-                                <input  id='phone' name='phone' placeholder='phonenumber'></input>
+                                <input value={phoneNum} onChange={handlePhoneNum} id='phone' name='phone' placeholder='phone number'></input>
                             </div>
 
                             <div className='pad'>
@@ -104,7 +110,7 @@ function Reserve() {
                     </div>
                     <br></br><br></br>
                     <div className='SubmitButton'>
-                        <button type='submit' className='btn btn-primary tblButton'>Make a Reserve</button>
+                        <button type='submit' className='btn btn-primary tblButton'>Make a Reservation</button>
                     </div>
                 </span>
                 </div>
@@ -119,5 +125,7 @@ function Reserve() {
     );
     
 }
+export default Reserve2;
 
-export default Reserve;
+
+
