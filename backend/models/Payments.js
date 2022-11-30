@@ -13,6 +13,7 @@ const paymentSchema = new Schema({
     dinerNum: {type:String},
     points: {type:String},
     mailingAddress: {type:String},
+    highTraffic: {type:Boolean},
     users: [{type:Schema.Types.ObjectID, ref:'users'}]
 });
 

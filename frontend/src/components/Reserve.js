@@ -3,8 +3,13 @@ import DatePicker from 'react-date-picker'
 import React,{ useCallback, useEffect, useState } from 'react';
 import dish1 from './../../src/components/image/dish1.jpeg';
 import reportWebVitals from "./../reportWebVitals";
+import Holidays from 'date-holidays';
 
 function Reserve() {
+
+    const hd = new Holidays('US');
+    const holiday = hd.getHolidays();
+    //console.log(holiday)
 
     const [guestnum, setGuestNum] = useState(1);
     const minGuest = 1;
@@ -17,7 +22,34 @@ function Reserve() {
         setGuestNum(value)
     }
 
-    const [reserveDate, setDate] = useState(new Date())
+    function isWeekend(date = new Date()){
+        return date.getDay() === 6 || date.getDay() === 0;
+    }
+
+    //const [reserveDate, setDate] = useState(new Date())
+    const [reserveDate,setDate] = useState(new Date());
+
+    const [checked,setChecked] = React.useState(false);
+
+    const handleResDate = (e) =>{
+        console.log("HIGH TRAFFIC")
+        console.log(e)
+        console.log(e.getDay())
+        if(isWeekend(e)||hd.isHoliday(e)){
+            alert("Please note that $5 hold fee will be applied for reservation during weekend and holiday! Thank you.")
+            //setHoldFee("true");
+            setChecked(true);
+        }
+        else{
+            //setHoldFee("false");
+            setChecked(false);
+        }
+        // if(hd.isHoliday(e)){
+        //     alert("Please note that $5 hold fee will be applied for reservation during holidays! Thank you")
+        // }
+        
+        setDate(e)
+    }
 
     const [fname, setFName] = useState('');
     const handleFNameInput = event => {
@@ -60,7 +92,11 @@ function Reserve() {
                             <p>Please pick reservation date</p>
                             
                            {/* <input name='rsDate' id='rsDate' type={'date-local'} className='dtime' ></input>*/}
-                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={setDate} minDate={new Date()}></DatePicker>
+                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={handleResDate} minDate={new Date()}></DatePicker>
+                            <br></br><br></br>
+                            <text>$5 hold fee? </text>
+                            <input type={'checkbox'} checked={checked} name='highTraffic' id='highTraffic'></input>
+                            {/*<input name='highTraffic' value={holdFee} id='highTraffic'></input>*/}
                             
                     {/*<DateTimePicker onChange={onChange} value={value} className="dtime" minDate={value} disableClock={true}/>*/}
                         <br></br><br></br>
@@ -79,7 +115,7 @@ function Reserve() {
                         <span>
                             <div className='pad'>
                                 <p>First Name&emsp;&emsp;</p>
-                                <input id='fname' value={fname} onChange={handleFNameInput} name='fname' placeholder='first name' required></input>
+                                <input id='fname' value={fname} onChange={handleFNameInput} name='fname' placeholder='first name' required ></input>
                             </div>
                             
                             <div className='pad'>

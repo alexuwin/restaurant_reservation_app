@@ -61,7 +61,13 @@ app.listen(PORT, () => {
 var database
 
 app.post('/genTable',function(req,res) {
-    console.log('Trial');
+    //HIGH TRAFFIC
+    var highTraffic = false;
+    console.log(req.body.highTraffic)
+    if(req.body.highTraffic=="on"){
+        highTraffic = true;
+    }
+    req.session.highTraffic = highTraffic;
 
     const fname = req.body.fname;
     const lname = req.body.lname;
@@ -75,6 +81,7 @@ app.post('/genTable',function(req,res) {
     console.log(resDate);
     const timeFrame = req.body.timeFrame;
     console.log(timeFrame);
+
 
     var availTables = new Array;
     var occupied = new Array;
@@ -446,10 +453,12 @@ app.post('/fee', async (req, res) => {
     const dinerNum = req.body.dinerNum;
     const mailingAddress = req.body.mailingAddress;
     const points = req.body.points;
+    
+    const highTraffic = req.session.highTraffic;
+    
 
     console.log("RS trial");
     console.log(req.session.occupied)
-
     
 
     const payment = new Payments({paymentType: paymentType,
@@ -462,7 +471,8 @@ app.post('/fee', async (req, res) => {
                         zipCode: zipCode,
                         dinerNum: dinerNum,
                         points: points,
-                        mailingAddress
+                        mailingAddress,
+                        highTraffic: highTraffic
                     });
 
     //const newPayment = new Schemas.Payments(payment);
