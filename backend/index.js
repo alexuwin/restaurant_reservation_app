@@ -184,7 +184,8 @@ app.post('/genTable',function(req,res) {
 
     availCapacity = findSet(tablesSet,tablesArray,tableCapacity,tableFlag,totalGuest,availTables,occupied,availCapacity)
 
-    TableAudit.findOneAndUpdate({resDate:resDate,timeFrame:timeFrame,lastestUpdate:true},{lastestUpdate:false}).then((result)=>{
+    //CHECK IF THERE IS ALREADY RESERVATION MADE ON THAT TIME FRAME
+    TableAudit.findOne({resDate:resDate,timeFrame:timeFrame,lastestUpdate:true}).then((result)=>{
         
         //WHEN THERE ARE OTHER RESERVATION ON THE DATE
         console.log(result.resDate)
@@ -194,7 +195,7 @@ app.post('/genTable',function(req,res) {
             console.log("Exceed capacity!")
             res.redirect('/reserve2');
         }
-        else{
+        else{//IF THERE STILL SPACE
             var availableTblsArray = result.availTables; //ARRAY 1
             var lengthOfArray = availableTblsArray.length;
             //generate new capacity arrays for remain tables
@@ -214,36 +215,71 @@ app.post('/genTable',function(req,res) {
             var newAvailCapacity;
             newAvailCapacity = findSet(newTableSet,availableTblsArray,newTableCapacity,newFlag,totalGuest,newAvailTables,newOccupied,newAvailCapacity)
 
-            const newBooking2 = new TableAudit({
-                totalGuests: totalGuest,
-                resDate:resDate,
-                timeFrame:timeFrame,
-                availTables: newAvailTables,
-                occupied: newOccupied,
-                availCapacity: newAvailCapacity,
-                lastestUpdate: true,
-                fname:fname,
-                lname: lname,
-                email: email,
-                phone: phone,
-                comment: comment
-            });
 
-            console.log(newBooking2)
+            //NOV 29 
+            //SESSION SAVE
+
+            req.session.totalGuests = totalGuest,
+            req.session.resDate = resDate,
+            req.session.timeFrame = timeFrame,
+            req.session.availTables = newAvailTables,
+            req.session.occupied = newOccupied,
+            req.session.availCapacity = newAvailCapacity,
+            req.session.lastestUpdate = true,
+            req.session.fname = fname,
+            req.session.lname = lname,
+            req.session.email = email,
+            req.session.phone = phone,
+            req.session.comment = comment
+
+            if(newOccupied.length>1){
+                req.session.combineTbl = true;
+            }else{
+                req.session.combineTbl = false;
+            }
+
+            console.log("TRIAL ON THE SESSION SAVE")
+            console.log(req.session.totalGuests)
+            console.log(req.session.combineTbl)
+
+            res.redirect('/fee')
+            res.end();
+            //NOV 29
+
+
 
             
+            //COMMENT OUT BUT WANT TO SAVE
+            // const newBooking2 = new TableAudit({
+            //     totalGuests: totalGuest,
+            //     resDate:resDate,
+            //     timeFrame:timeFrame,
+            //     availTables: newAvailTables,
+            //     occupied: newOccupied,
+            //     availCapacity: newAvailCapacity,
+            //     lastestUpdate: true,
+            //     fname:fname,
+            //     lname: lname,
+            //     email: email,
+            //     phone: phone,
+            //     comment: comment
+            // });
 
-            newBooking2.save(async(err2, newRes)=>{
-                if(err2){
-                    console.log(err2);
-                }else{
-                    console.log('Added new res!');
-                }
-                res.redirect('/fee')
-                res.end();
-            })
-            
+            // console.log(newBooking2)
+
+            // newBooking2.save(async(err2, newRes)=>{
+            //     if(err2){
+            //         console.log(err2);
+            //     }else{
+            //         console.log('Added new res!');
+            //     }
+            //     res.redirect('/fee')
+            //     res.end();
+            // })
+            //COMMENT OUT BUT WANT TO SAVE
         }
+
+
 
 
     }).catch(async(err)=>{
@@ -252,61 +288,87 @@ app.post('/genTable',function(req,res) {
         console.log("No reserve on the date")
         
 
-        // if(totalGuest=='2'){
-        //     availTables.push('t2');
-        //     tableFlag[0]=false;
-        //     occupied.push('t1');
-        // }
+         //NOV 29 
+        //SESSION SAVE
 
-        const newBooking = new TableAudit({
-            totalGuests: totalGuest,
-            resDate: resDate,
-            timeFrame: timeFrame,
-            availTables: availTables,
-            occupied: occupied,
-            availCapacity: availCapacity,
-            lastestUpdate: true,
-            fname:fname,
-            lname: lname,
-            email: email,
-            phone: phone,
-            comment: comment
-        });
-        console.log(newBooking)
+        req.session.totalGuests = totalGuest,
+        req.session.resDate = resDate,
+        req.session.timeFrame = timeFrame,
+        req.session.availTables = availTables,
+        req.session.occupied = occupied,
+        req.session.availCapacity = availCapacity,
+        req.session.lastestUpdate = true,
+        req.session.fname = fname,
+        req.session.lname = lname,
+        req.session.email = email,
+        req.session.phone = phone,
+        req.session.comment = comment
+       
 
-        await newBooking.save(async(err2, newRes)=>{
-            if(err2){
-                console.log(err2);
-            }else{
-                console.log('Added new res!');
-            }
-            res.redirect('/fee')
-            res.end();
-        })
+        if(occupied.length>1){
+            req.session.combineTbl = true;
+        }else{
+            req.session.combineTbl = false;
+        }
+
+        console.log("TRIAL ON THE SESSION SAVE")
+        console.log(req.session.totalGuests)
+        console.log(req.session.combineTbl)
+
+        res.redirect('/fee')
+        res.end();
+        //NOV 29
+        
+        
+
+
+        ////COMMENT OUT BUT WANT TO SAVE
+        // const newBooking = new TableAudit({
+        //     totalGuests: totalGuest,
+        //     resDate: resDate,
+        //     timeFrame: timeFrame,
+        //     availTables: availTables,
+        //     occupied: occupied,
+        //     availCapacity: availCapacity,
+        //     lastestUpdate: true,
+        //     fname:fname,
+        //     lname: lname,
+        //     email: email,
+        //     phone: phone,
+        //     comment: comment
+        // });
+        // console.log(newBooking)
+
+        // await newBooking.save(async(err2, newRes)=>{
+        //     if(err2){
+        //         console.log(err2);
+        //     }else{
+        //         console.log('Added new res!');
+        //     }
+        //     res.redirect('/fee')
+        //     res.end();
+        // })
+        //COMMENT OUT BUT WANT TO SAVE
         
     })
-
+    
 });
 
-app.get('/results',function(req,res){
-    // res.json('This is trial')
-    TableAudit.findOne({lastestUpdate:true}).then((result)=>
-    {
-        res.json(result.occupied)
-    })
-})
-
-// app.get('/outputTables',async(req,res)=>{
-//     const tablesAudit = mongoose.Schema.TableAudit;
-//     const tbls = await tablesAudit.findOne({}).exec((err, tblsData) =>{
-//         if(err) throw err;
-//         if(tblsData){
-//             res.end(JSON.stringify(tblsData));
-//         }else{
-//             res.end();
-//         }
+// app.get('/results',function(req,res){
+//     // res.json('This is trial')
+//     TableAudit.findOne({lastestUpdate:true}).then((result)=>
+//     {
+//         res.json(result.occupied)
 //     })
-// });
+// })
+
+app.post('/guest', function(req, res){
+    req.session.guest = true;
+    req.session.user = '';
+    req.session.userID = '';
+    res.redirect('/reserve');
+    res.end();
+});
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
@@ -391,6 +453,10 @@ app.post('/fee', async (req, res) => {
     const mailingAddress = req.body.mailingAddress;
     const points = req.body.points;
 
+    console.log("RS trial");
+    console.log(req.session.occupied)
+
+    
 
     const payment = new Payments({paymentType: paymentType,
                         cardBrand: cardBrand, 
@@ -413,6 +479,39 @@ app.post('/fee', async (req, res) => {
             if (err) {
                 console.log(err);
             } else {
+                //NOV 29 RS ADD SAVING TO AUDIT TBL AFTER THE PAYMENT WENT THROUGH
+
+                TableAudit.findOneAndUpdate({resDate:req.session.resDate,timeFrame:req.session.timeFrame,lastestUpdate:true},{lastestUpdate:false}).then((result)=>{
+                    console.log("TESTING FINDONEUPDATE")
+                    console.log(result.fname);
+                });
+    
+                const newBooking = new TableAudit({
+                    totalGuests : req.session.totalGuests,
+                    resDate : req.session.resDate,
+                    timeFrame : req.session.timeFrame,
+                    availTables : req.session.availTables,
+                    occupied: req.session.occupied,
+                    availCapacity : req.session.availCapacity,
+                    lastestUpdate : req.session.lastestUpdate,
+                    fname : req.session.fname,
+                    lname : req.session.lname,
+                    email : req.session.email,
+                    phone : req.session.phone,
+                    comment : req.session.comment,
+                    combineTbl : req.session.combineTbl
+                });
+
+                await newBooking.save(async(err2,newRes)=>{
+                    if(err2){
+                        console.log(err2);
+                    }else{
+                        console.log('Added the reservation tables info');
+                    }
+                })
+
+                //NOV 29 
+            
                 console.log('New payment created!');
             }
             res.redirect('/thank-you')

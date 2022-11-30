@@ -14,6 +14,7 @@ const tableAuditSchema = new Schema({
     email : {type: String},
     phone: {type: String},
     comment: {type: String},
+    combineTbl: {type: Boolean},
     users: [{type:Schema.Types.ObjectID, ref:'users'}]
 });
 

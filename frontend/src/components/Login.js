@@ -45,8 +45,8 @@ function Login(){
         <section>
             <div>
                 <h1 className="loginRegisterTitle">Login</h1>
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-                    <link rel="stylesheet" href="App.css"></link>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+                <link rel="stylesheet" href="App.css"></link>
                 <form action="/login" method="POST">
                     <div className='loginRegisterCentered'>
                         <span>
@@ -65,6 +65,8 @@ function Login(){
                             <div class="register">
                                 Don't have an account yet?
                                 <Link to='/register'><button id="register-link" className="btn-work-reg">Register</button></Link>
+                                Continue as Guest
+                                <form action="/guest" method="POST"><input type="submit" value="Guest" className="inp-text-input-loginReg"/></form>
                             </div>
                         </span>
                     </div>
