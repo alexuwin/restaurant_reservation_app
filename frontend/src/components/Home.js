@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 //import {useState} from 'react';
 
 function Home(){
@@ -14,6 +15,7 @@ function Home(){
                 <div className="homeMsg">We are ecstatic to give you the opportunity to embark on the exquisite cuisine of traditional Vietnamese dishes.</div>
                 <div className="quote">“Food is our common ground, a universal experience.” –James Beard</div>
             </div>
+            <Link to='/login'><button id="register-link" className="start-reservation">Make a reservation!</button></Link>
         </section>
     );
 }

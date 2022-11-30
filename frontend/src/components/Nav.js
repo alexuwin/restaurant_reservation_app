@@ -21,7 +21,7 @@ function Nav() {
                     </svg>
                     <span className="location">&nbsp;209 Star Esclipe Blv, HTX 77209</span>
                 </div>
-            <ul>
+            {/*<ul>
                 <li className="active">
                     <a href="/reserve">Reserve<Link to='/reserve'></Link></a>
                 </li>
@@ -31,12 +31,10 @@ function Nav() {
                 <li>
                     <a href="/register">Register<Link to='/register'></Link></a>
                 </li>
-                {/*
                 <li>
                     <a href="/fee">Payment<Link to='/fee'></Link></a>
                 </li>
-                */}
-            </ul>
+            </ul>*/}
         </nav>
     );
 }
