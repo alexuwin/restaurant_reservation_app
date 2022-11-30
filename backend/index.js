@@ -249,8 +249,12 @@ app.post('/genTable',function(req,res) {
             console.log(req.session.totalGuests)
             console.log(req.session.combineTbl)
 
-            res.redirect('/fee')
-            res.end();
+            if(req.session.guest){
+                res.redirect('/prompt-guest')
+            } else {
+                res.redirect('/fee')
+                res.end();
+            }
             //NOV 29
 
 
@@ -321,9 +325,12 @@ app.post('/genTable',function(req,res) {
         console.log("TRIAL ON THE SESSION SAVE")
         console.log(req.session.totalGuests)
         console.log(req.session.combineTbl)
-
-        res.redirect('/fee')
-        res.end();
+        if(req.session.guest){
+            res.redirect('/prompt-guest')
+        } else {
+            res.redirect('/fee')
+            res.end();
+        }
         //NOV 29
         
         
@@ -391,8 +398,13 @@ app.post('/login', (req, res) => {
             req.session.guest = false;
             req.session.user = username
             req.session.userID = result._id
-            res.redirect('/reserve');
-            res.end();
+            if (req.session.resDate) {
+                res.redirect('/fee')
+                res.end();
+            } else {
+                res.redirect('/reserve');
+                res.end();
+            }
         }
     }).catch((err) => {
         console.log(err);

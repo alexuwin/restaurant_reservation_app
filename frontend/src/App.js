@@ -12,6 +12,7 @@ import FeeFail from './components/FeeFail';
 import Home from './components/Home';
 import ThankYou from './components/ThankYou';
 import Reserve2 from './components/Reserve2';
+import PromptGuest from './components/PromptGuest';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 //npm install react-router-dom@5.2.0
 //testBranch
@@ -35,6 +36,7 @@ function App() {
               <Route path ="/fee-fail" exact component = {FeeFail} />
               <Route path ="/thank-you" exact component = {ThankYou} />
               <Route path ="/reserve2" exact component = {Reserve2}/>
+              <Route path ="/prompt-guest" exact component = {PromptGuest}/>
             </Switch>
           </div>
         </header>
