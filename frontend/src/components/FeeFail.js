@@ -119,6 +119,7 @@ function Fee() {
         <section>
             <div>
                 <h1>Payment Information</h1>
+                <p>Payment Failed, please re-enter information.</p>
                 <form action="/fee" method="POST">
                     <div>
                         <span>

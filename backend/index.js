@@ -322,7 +322,7 @@ app.post('/login', (req, res) => {
             req.session.guest = false;
             req.session.user = username
             req.session.userID = result._id
-            res.redirect('/');
+            res.redirect('/reserve');
             res.end();
         }
     }).catch((err) => {
@@ -415,13 +415,13 @@ app.post('/fee', async (req, res) => {
             } else {
                 console.log('New payment created!');
             }
-            res.redirect('/fee')
+            res.redirect('/thank-you')
             res.end('New user payment created!');
         });
     } catch(err) {
         console.log(err);
         console.log('caught error in fee!')
-        res.redirect('/payment-fail')
+        res.redirect('/fee-fail')
         res.end('User payment not added!');
     }
 });

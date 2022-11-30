@@ -1,6 +1,6 @@
 import React from 'react'; //ES6 JS
 import {Link} from 'react-router-dom';
-//testBranch
+
 function Nav() {
     return(
         <nav className="nav">
@@ -31,9 +31,11 @@ function Nav() {
                 <li>
                     <a href="/register">Register<Link to='/register'></Link></a>
                 </li>
+                {/*
                 <li>
                     <a href="/fee">Payment<Link to='/fee'></Link></a>
                 </li>
+                */}
             </ul>
         </nav>
     );

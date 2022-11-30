@@ -106,12 +106,7 @@ function Reserve() {
                 </span>
                 </div>
             </form>
-
-        
             </div> 
-            
-
-
         </section>
     );
     

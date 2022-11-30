@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//testBranch
 const tableAuditSchema = new Schema({
     totalGuests: {type:Number},
     resDate: {type:String},

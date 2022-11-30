@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//testBranch
 const userInfoSchema = new Schema({
     fname : {type: String, required:true},
     lname : {type: String},
