@@ -369,7 +369,13 @@ app.post('/genTable',function(req,res) {
 //     })
 // })
 
-
+app.post('/guest', function(req, res){
+    req.session.guest = true;
+    req.session.user = '';
+    req.session.userID = '';
+    res.redirect('/reserve');
+    res.end();
+});
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
@@ -385,7 +391,7 @@ app.post('/login', (req, res) => {
             req.session.guest = false;
             req.session.user = username
             req.session.userID = result._id
-            res.redirect('/');
+            res.redirect('/reserve');
             res.end();
         }
     }).catch((err) => {
