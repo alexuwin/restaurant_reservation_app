@@ -36,7 +36,7 @@ function Reserve() {
         console.log(e)
         console.log(e.getDay())
         if(isWeekend(e)||hd.isHoliday(e)){
-            alert("Please note that $5 hold fee will be applied for reservation during weekend and holiday! Thank you.")
+            alert("Please note that $10 hold fee will be applied for reservation during weekend and holiday! Thank you.")
             //setHoldFee("true");
             setChecked(true);
         }
@@ -95,7 +95,7 @@ function Reserve() {
                            {/* <input name='rsDate' id='rsDate' type={'date-local'} className='dtime' ></input>*/}
                             <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={handleResDate} minDate={new Date()}></DatePicker>
                             <br></br><br></br>
-                            <text>$5 hold fee? </text>
+                            <text>$10 hold fee?</text>
                             <input type={'checkbox'} checked={checked} name='highTraffic' id='highTraffic'></input>
                             {/*<input name='highTraffic' value={holdFee} id='highTraffic'></input>*/}
                             
