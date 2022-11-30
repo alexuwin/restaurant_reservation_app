@@ -1,13 +1,15 @@
 import { faTabletScreenButton } from '@fortawesome/free-solid-svg-icons';
 import DatePicker from 'react-date-picker'
-import React,{ useEffect, useState } from 'react';
+import React,{ useCallback, useEffect, useState } from 'react';
 import dish1 from './../../src/components/image/dish1.jpeg';
 import reportWebVitals from "./../reportWebVitals";
-
-
+import Holidays from 'date-holidays';
 
 function Reserve2() {
 
+    const hd = new Holidays('US');
+    const holiday = hd.getHolidays();
+    //console.log(holiday)
 
     const [guestnum, setGuestNum] = useState(1);
     const minGuest = 1;
@@ -20,7 +22,34 @@ function Reserve2() {
         setGuestNum(value)
     }
 
-    const [reserveDate, setDate] = useState(new Date())
+    function isWeekend(date = new Date()){
+        return date.getDay() === 6 || date.getDay() === 0;
+    }
+
+    //const [reserveDate, setDate] = useState(new Date())
+    const [reserveDate,setDate] = useState(new Date());
+
+    const [checked,setChecked] = React.useState(false);
+
+    const handleResDate = (e) =>{
+        console.log("HIGH TRAFFIC")
+        console.log(e)
+        console.log(e.getDay())
+        if(isWeekend(e)||hd.isHoliday(e)){
+            alert("Please note that $5 hold fee will be applied for reservation during weekend and holiday! Thank you.")
+            //setHoldFee("true");
+            setChecked(true);
+        }
+        else{
+            //setHoldFee("false");
+            setChecked(false);
+        }
+        // if(hd.isHoliday(e)){
+        //     alert("Please note that $5 hold fee will be applied for reservation during holidays! Thank you")
+        // }
+        
+        setDate(e)
+    }
 
     const [fname, setFName] = useState('');
     const handleFNameInput = event => {
@@ -46,7 +75,7 @@ function Reserve2() {
         <section >
             
             <div>
-                <h1>There is no available tables in the timeframe! Please pick a different day.</h1>
+                <h1>Sorry! There is no available tables during the timeframe.</h1>
             <form action = '/genTable' method='POST' className='tblForm'>
                 <div className='info1'>
                     <span>
@@ -64,7 +93,11 @@ function Reserve2() {
                             <p>Please pick reservation date</p>
                             
                            {/* <input name='rsDate' id='rsDate' type={'date-local'} className='dtime' ></input>*/}
-                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={setDate} minDate={new Date()}></DatePicker>
+                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={handleResDate} minDate={new Date()}></DatePicker>
+                            <br></br><br></br>
+                            <text>$5 hold fee? </text>
+                            <input type={'checkbox'} checked={checked} name='highTraffic' id='highTraffic'></input>
+                            {/*<input name='highTraffic' value={holdFee} id='highTraffic'></input>*/}
                             
                     {/*<DateTimePicker onChange={onChange} value={value} className="dtime" minDate={value} disableClock={true}/>*/}
                         <br></br><br></br>
@@ -125,7 +158,5 @@ function Reserve2() {
     );
     
 }
+
 export default Reserve2;
-
-
-
