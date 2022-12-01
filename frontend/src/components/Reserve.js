@@ -27,7 +27,7 @@ function Reserve() {
     }
 
     //const [reserveDate, setDate] = useState(new Date())
-    const [reserveDate,setDate] = useState(new Date());
+    const [reserveDate,setDate] = useState();
 
     const [checked,setChecked] = React.useState(false);
 
@@ -93,7 +93,7 @@ function Reserve() {
                             <p>Please pick reservation date</p>
                             
                            {/* <input name='rsDate' id='rsDate' type={'date-local'} className='dtime' ></input>*/}
-                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={handleResDate} minDate={new Date()}></DatePicker>
+                            <DatePicker name='resDate' id = 'resDate' value={reserveDate} onChange={handleResDate} minDate={new Date()} required></DatePicker>
                             <br></br><br></br>
                             <text>$10 hold fee?</text>
                             <input type={'checkbox'} checked={checked} name='highTraffic' id='highTraffic'></input>
