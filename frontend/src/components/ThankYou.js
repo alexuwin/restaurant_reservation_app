@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 function ThankYou(){
     return(
-        <section>
+        <section data-testid="thank-you">
             <div className="welcomeScreen">
                 <h1>
                     <br></br><br></br><br></br><br></br><br></br>

@@ -22,7 +22,7 @@ function RegisterFail() {
     }
 
     return(
-        <section>
+        <section data-testid="register-2">
             <div>
                 <h1 className="loginRegisterTitle">Register</h1>
                 <h6 className="loginRegisterError">The username is taken.</h6>

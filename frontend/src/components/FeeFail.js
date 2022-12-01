@@ -116,7 +116,7 @@ function Fee() {
     }
 
     return(
-        <section>
+        <section data-testid="fee-2">
             <div>
                 <h1>Payment Information</h1>
                 <p>Payment Failed, please re-enter information.</p>

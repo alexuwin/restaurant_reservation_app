@@ -72,8 +72,7 @@ function Reserve2() {
 
    
     return(
-        <section >
-            
+        <section data-testid="reserve-2">
             <div>
                 <h1>Sorry! There is no available tables during the timeframe.</h1>
             <form action = '/genTable' method='POST' className='tblForm'>

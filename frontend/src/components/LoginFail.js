@@ -43,7 +43,7 @@ function LoginFail(){
     }
   
     return(
-        <section>
+        <section data-testid="login-2">
             <div>
                 <h1 className="loginRegisterTitle">Login</h1>
                 <h6 className="loginRegisterError">Incorrect Username or Password.</h6>
