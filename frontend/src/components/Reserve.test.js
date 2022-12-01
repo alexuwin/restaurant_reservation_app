@@ -55,31 +55,31 @@ test("Reserve lname form should be LETTERS ONLY in the document", async ()=>{
     expect(userInputEl.value).toBe(testValue);
 });
 
-test("Reserve phone number form should be LETTERS ONLY in the document", async ()=>{
+test("Reserve phone number form should NOT be LETTERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('phone number');
     const testValue = "alex nguyen";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
 
-test("Reserve fname form should be NUMBERS ONLY in the document", async ()=>{
+test("Reserve fname form should NOT be NUMBERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('first name');
     const testValue = "1234567890";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
 
-test("Reserve lname form should be NUMBERS ONLY in the document", async ()=>{
+test("Reserve lname form should NOT be NUMBERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('last name');
     const testValue = "1234567890";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
 
 test("Reserve phone number form should be NUMBERS ONLY in the document", async ()=>{
@@ -91,29 +91,29 @@ test("Reserve phone number form should be NUMBERS ONLY in the document", async (
     expect(userInputEl.value).toBe(testValue);
 });
 
-test("Reserve fname form should be CHARACTERS ONLY in the document", async ()=>{
+test("Reserve fname form should NOT be CHARACTERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('first name');
     const testValue = "!@#$%^&*()-=+_;'.,<>/?";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
 
-test("Reserve lname form should be CHARACTERS ONLY in the document", async ()=>{
+test("Reserve lname form should NOT be CHARACTERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('last name');
     const testValue = "!@#$%^&*()-=+_;'.,<>/?";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
 
-test("Reserve phone number form should be CHARACTERS ONLY in the document", async ()=>{
+test("Reserve phone number form should NOT be CHARACTERS ONLY in the document", async ()=>{
     render(<BrowserRouter><Reserve/></BrowserRouter>);
     const userInputEl = screen.getByPlaceholderText('phone number');
     const testValue = "!@#$%^&*()-=+_;'.,<>/?";
 
     fireEvent.change(userInputEl, {target:{value:testValue}})
-    expect(userInputEl.value).toBe(testValue);
+    expect(userInputEl.value).toBe("");
 });
