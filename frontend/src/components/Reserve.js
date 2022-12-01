@@ -3,7 +3,7 @@ import DatePicker from 'react-date-picker'
 import React,{ useCallback, useEffect, useState } from 'react';
 import dish1 from './../../src/components/image/dish1.jpeg';
 import reportWebVitals from "./../reportWebVitals";
-import Holidays from 'date-holidays';
+import Holidays from 'date-holidays'; //Something about this library is misconfigured when put through unit testing...
 
 function Reserve() {
 
